@@ -14,13 +14,13 @@ git checkout development
 git pull origin development
 
 echo "Updating production..."
-git checkout production
-git pull origin production
+git checkout main
+git pull origin main
 
 echo "Merging development into production..."
 git merge development
 
 echo "Pushing production..."
-git push origin production
+git push origin main
 
 echo "Production release pushed."
