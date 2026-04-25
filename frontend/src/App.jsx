@@ -115,7 +115,7 @@ function App() {
             </label>
 
             <label>
-              Sex
+              Gender
               <select value={form.playerSex} onChange={(e) => updateField("playerSex", e.target.value)}>
                 <option>Male</option>
                 <option>Female</option>
