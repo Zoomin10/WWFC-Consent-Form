@@ -89,9 +89,7 @@ router.get("/registrations.csv", async (req, res) => {
         { id: "contact2Email", title: "Emergency Contact 2 Email" },
         { id: "contact2Relationship", title: "Emergency Contact 2 Relationship" },
 
-        { id: "email", title: "Primary Email" },
-        { id: "postcode", title: "Primary Postcode" },
-        { id: "houseNumber", title: "Primary House Number" },
+      
         { id: "medicalInfo", title: "Medical Info" },
         { id: "allergies", title: "Allergies" },
         { id: "consentData", title: "Contact Consent" },
@@ -132,9 +130,6 @@ router.get("/registrations.csv", async (req, res) => {
       contact2Email: f.emergencyContact2?.email || "",
       contact2Relationship: f.emergencyContact2?.relationship || "",
 
-      email: f.email || "",
-      postcode: f.postcode || "",
-      houseNumber: f.houseNumber || "",
       medicalInfo: f.medicalInfo || "",
       allergies: f.allergies || "",
       consentData: f.consentData ? "Yes" : "No",
