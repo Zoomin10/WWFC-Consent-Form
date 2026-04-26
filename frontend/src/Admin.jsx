@@ -78,7 +78,7 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
   />
 
   <Stat
-    title="Competitive U12 & above"
+    title="Competitive U12 & over"
     value={stats.competitive}
     percentage={percentage(stats.competitive, stats.total)}
   />
