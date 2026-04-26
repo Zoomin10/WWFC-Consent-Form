@@ -7,6 +7,7 @@ export default function Admin() {
   const [stats, setStats] = useState(null);
   const [registrations, setRegistrations] = useState([]);
   const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
+const [selectedRegistration, setSelectedRegistration] = useState(null);
 
   async function loadDashboard() {
     const res = await fetch(`${API_URL}/api/admin/dashboard`);
@@ -90,7 +91,8 @@ export default function Admin() {
           </a>
         </div>
 
- <div className="table-wrap">
+ 
+<div className="table-wrap">
   <table>
     <thead>
       <tr>
@@ -108,56 +110,16 @@ export default function Admin() {
       {registrations.map((r) => (
         <tr key={r.id}>
           <td>
-            <span className="player-cell">
+            <button className="player-link" onClick={() => setSelectedRegistration(r)}>
               {r.playerFirstName} {r.playerSurname}
-
-              <div className="registration-popover">
-                <h3>{r.playerFirstName} {r.playerSurname}</h3>
-
-                <p><strong>Age Group:</strong> {String(r.ageGroup).toUpperCase()}</p>
-                <p><strong>Gender:</strong> {r.playerSex}</p>
-                <p><strong>DOB:</strong> {new Date(r.playerDob).toLocaleDateString("en-GB")}</p>
-
-                <hr />
-
-                <p><strong>Parent 1:</strong> {r.emergencyContact1?.name || ""}</p>
-                <p><strong>Phone:</strong> {r.emergencyContact1?.phoneNumber || ""}</p>
-                <p><strong>Email:</strong> {r.emergencyContact1?.email || ""}</p>
-                <p><strong>Relationship:</strong> {r.emergencyContact1?.relationship || ""}</p>
-
-                <hr />
-
-                <p><strong>Parent 2:</strong> {r.emergencyContact2?.name || ""}</p>
-                <p><strong>Phone:</strong> {r.emergencyContact2?.phoneNumber || ""}</p>
-                <p><strong>Email:</strong> {r.emergencyContact2?.email || ""}</p>
-                <p><strong>Relationship:</strong> {r.emergencyContact2?.relationship || ""}</p>
-
-                <hr />
-
-                <p><strong>Medical Info:</strong> {r.medicalInfo || ""}</p>
-                <p><strong>Allergies:</strong> {r.allergies || ""}</p>
-
-                <hr />
-
-                <p><strong>Contact Consent:</strong> {r.consentData ? "Yes" : "No"}</p>
-                <p><strong>Photo Consent:</strong> {r.consentPhotos ? "Yes" : "No"}</p>
-                <p><strong>Video Consent:</strong> {r.consentVideos ? "Yes" : "No"}</p>
-
-                <hr />
-
-                <p><strong>Signed By:</strong> {r.parentName}</p>
-                <p><strong>Signature Date:</strong> {new Date(r.signatureDate).toLocaleDateString("en-GB")}</p>
-              </div>
-            </span>
+            </button>
           </td>
-
           <td>{String(r.ageGroup).toUpperCase()}</td>
           <td>{r.playerSex}</td>
           <td>{new Date(r.playerDob).toLocaleDateString("en-GB")}</td>
           <td>{r.emergencyContact1?.name || ""}</td>
           <td>{r.emergencyContact2?.name || ""}</td>
           <td>{new Date(r.createdAt).toLocaleDateString("en-GB")}</td>
-
           <td>
             <button className="delete-btn" onClick={() => deleteRegistration(r.id)}>
               Delete
@@ -174,6 +136,47 @@ export default function Admin() {
     </tbody>
   </table>
 </div>
+{selectedRegistration && (
+  <div className="modal-backdrop" onClick={() => setSelectedRegistration(null)}>
+    <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-header">
+        <h2>
+          {selectedRegistration.playerFirstName} {selectedRegistration.playerSurname}
+        </h2>
+        <button className="modal-close" onClick={() => setSelectedRegistration(null)}>
+          ×
+        </button>
+      </div>
+
+      <div className="modal-grid">
+        <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
+        <Detail label="Gender" value={selectedRegistration.playerSex} />
+        <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
+        <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
+
+        <Detail label="Parent 1" value={selectedRegistration.emergencyContact1?.name} />
+        <Detail label="Parent 1 Phone" value={selectedRegistration.emergencyContact1?.phoneNumber} />
+        <Detail label="Parent 1 Email" value={selectedRegistration.emergencyContact1?.email} />
+        <Detail label="Parent 1 Relationship" value={selectedRegistration.emergencyContact1?.relationship} />
+
+        <Detail label="Parent 2" value={selectedRegistration.emergencyContact2?.name} />
+        <Detail label="Parent 2 Phone" value={selectedRegistration.emergencyContact2?.phoneNumber} />
+        <Detail label="Parent 2 Email" value={selectedRegistration.emergencyContact2?.email} />
+        <Detail label="Parent 2 Relationship" value={selectedRegistration.emergencyContact2?.relationship} />
+
+        <Detail label="Medical Info" value={selectedRegistration.medicalInfo} wide />
+        <Detail label="Allergies" value={selectedRegistration.allergies} wide />
+
+        <Detail label="Contact Consent" value={selectedRegistration.consentData ? "Yes" : "No"} />
+        <Detail label="Photo Consent" value={selectedRegistration.consentPhotos ? "Yes" : "No"} />
+        <Detail label="Video Consent" value={selectedRegistration.consentVideos ? "Yes" : "No"} />
+
+        <Detail label="Signed By" value={selectedRegistration.parentName} />
+        <Detail label="Signature Date" value={new Date(selectedRegistration.signatureDate).toLocaleDateString("en-GB")} />
+      </div>
+    </div>
+  </div>
+)}
       </section>
     </main>
   );
@@ -185,6 +188,14 @@ function Stat({ title, value }) {
     <div className="stat">
       <span>{title}</span>
       <strong>{value}</strong>
+    </div>
+  );
+}
+function Detail({ label, value, wide }) {
+  return (
+    <div className={wide ? "detail detail-wide" : "detail"}>
+      <span>{label}</span>
+      <strong>{value || "—"}</strong>
     </div>
   );
 }
