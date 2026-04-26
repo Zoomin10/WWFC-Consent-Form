@@ -16,7 +16,7 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 per row */
   gap: 16px;
   margin: 24px 0;
 }
@@ -104,3 +104,9 @@ th {
     padding: 18px;
   }
 }
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

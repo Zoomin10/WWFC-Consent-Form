@@ -18,8 +18,12 @@ router.get("/dashboard", async (req, res) => {
     const girls = forms.filter((f) => f.playerSex === "Female").length;
     const development = forms.filter((f) => isDevelopmentAge(f.ageGroup)).length;
     const competitive = forms.filter((f) => !isDevelopmentAge(f.ageGroup)).length;
+    const adult = forms.filter((f) => {
+      const age = Number(String(f.ageGroup).replace("u", ""));
+      return age >= 18;
+    }).length;
 
-    res.json({ total, boys, girls, development, competitive });
+    res.json({ total, boys, girls, development, competitive, adult });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to load dashboard" });

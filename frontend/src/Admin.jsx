@@ -57,6 +57,7 @@ export default function Admin() {
             <Stat title="Girls" value={stats.girls} />
             <Stat title="Development Age Groups" value={stats.development} />
             <Stat title="Competitive Age Groups" value={stats.competitive} />
+            <Stat title="Adult Players" value={stats.adult} />
           </div>
         )}
 
