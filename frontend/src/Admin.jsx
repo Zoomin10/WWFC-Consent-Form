@@ -205,6 +205,7 @@ export default function Admin() {
     </section>
   </main>
 );
+}
 
 function percentage(value, total) {
   if (!total) return "0%";
