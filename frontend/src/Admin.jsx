@@ -7,7 +7,7 @@ export default function Admin() {
   const [stats, setStats] = useState(null);
   const [registrations, setRegistrations] = useState([]);
   const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
-const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [selectedRegistration, setSelectedRegistration] = useState(null);
 
   async function loadDashboard() {
     const res = await fetch(`${API_URL}/api/admin/dashboard`);
@@ -47,193 +47,164 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
   }, [filters]);
 
   return (
-    <main className="admin-page">
-       <header className="admin-header">
-    <img src="/wwfc-letter-head.png" alt="WWFC" className="admin-logo" />
-    <h1>Player Registrations Dashboard</h1>
-  </header>
-      <section className="admin-card">
-       
+  <main className="admin-page">
+    <header className="admin-header">
+      <img src="/wwfc-letter-head.png" alt="WWFC" className="admin-logo" />
+      <h1>Player Registrations Dashboard</h1>
+    </header>
 
-     {stats && (
-  <>
-    <h2 className="section-title">Dashboard</h2>
+    <section className="admin-card">
+      {stats && (
+        <>
+          <h2 className="section-title">Dashboard</h2>
 
-    <div className="stats-grid">
-  <Stat title="Total registrations" value={stats.total} />
-
-  <Stat
-    title="Male"
-    value={stats.boys}
-    percentage={percentage(stats.boys, stats.total)}
-  />
-
-  <Stat
-    title="Female"
-    value={stats.girls}
-    percentage={percentage(stats.girls, stats.total)}
-  />
-
-  <Stat
-    title="Development U11 & below"
-    value={stats.development}
-    percentage={percentage(stats.development, stats.total)}
-  />
-
-  <Stat
-    title="Competitive U12 & over"
-    value={stats.competitive}
-    percentage={percentage(stats.competitive, stats.total)}
-  />
-
-  <Stat
-    title="Adult Players"
-    value={stats.adult}
-    percentage={percentage(stats.adult, stats.total)}
-  />
-</div>
-        )}
-
-        <div className="admin-actions">
-          <select
-            value={filters.ageGroup}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, ageGroup: e.target.value }))
-            }
-          >
-            <option value="">Filter by Age Group</option>
-            {["u7", "u8", "u9", "u10", "u11", "u12", "u13", "u14", "u15", "u16", "u17", "u18"].map((age) => (
-              <option key={age} value={age}>{age.toUpperCase()}</option>
-            ))}
-          </select>
-
-          <select
-            value={filters.playerSex}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, playerSex: e.target.value }))
-            }
-          >
-            <option value="">Filter by Gender</option>
-            <option value="Male">Boys</option>
-            <option value="Female">Girls</option>
-          </select>
-
-          <a className="download-btn" href={`${API_URL}/api/admin/registrations.csv`}>
-            Download CSV
-          </a>
-        </div>
-
-<>
-  <h2 className="section-title">
-    List of Registered Players
-    <span className="section-subtitle">
-      (click on player name for full details)
-    </span>
-  </h2>
-
-  <div className="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Player</th>
-        <th>Age Group</th>
-        <th>Gender</th>
-        <th>DOB</th>
-        <th>Parent 1</th>
-        <th>Parent 2</th>
-        <th>Submitted</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {registrations.map((r) => (
-        <tr key={r.id}>
-          <td>
-            <button className="player-link" onClick={() => setSelectedRegistration(r)}>
-              {r.playerFirstName} {r.playerSurname}
-            </button>
-          </td>
-          <td>{String(r.ageGroup).toUpperCase()}</td>
-          <td>{r.playerSex}</td>
-          <td>{new Date(r.playerDob).toLocaleDateString("en-GB")}</td>
-          <td>{r.emergencyContact1?.name || ""}</td>
-          <td>{r.emergencyContact2?.name || ""}</td>
-          <td>{new Date(r.createdAt).toLocaleDateString("en-GB")}</td>
-          <td>
-            <button className="delete-btn" onClick={() => deleteRegistration(r.id)}>
-              Delete
-            </button>
-          </td>
-        </tr>
-      ))}
-
-      {registrations.length === 0 && (
-        <tr>
-          <td colSpan="8">No registrations found.</td>
-        </tr>
+          <div className="stats-grid">
+            <Stat title="Total registrations" value={stats.total} />
+            <Stat title="Male" value={stats.boys} percentage={percentage(stats.boys, stats.total)} />
+            <Stat title="Female" value={stats.girls} percentage={percentage(stats.girls, stats.total)} />
+            <Stat title="Development U11 & below" value={stats.development} percentage={percentage(stats.development, stats.total)} />
+            <Stat title="Competitive U12 & over" value={stats.competitive} percentage={percentage(stats.competitive, stats.total)} />
+            <Stat title="Adult Players" value={stats.adult} percentage={percentage(stats.adult, stats.total)} />
+          </div>
+        </>
       )}
-    </tbody>
-  </table>
-</div>
-{selectedRegistration && (
-  <div className="modal-backdrop" onClick={() => setSelectedRegistration(null)}>
-    <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-      <div className="modal-header">
-        <h2>
-          {selectedRegistration.playerFirstName} {selectedRegistration.playerSurname}
-        </h2>
-        <button className="modal-close" onClick={() => setSelectedRegistration(null)}>
-          ×
-        </button>
+
+      <div className="admin-actions">
+        <select
+          value={filters.ageGroup}
+          onChange={(e) => setFilters((prev) => ({ ...prev, ageGroup: e.target.value }))}
+        >
+          <option value="">Filter by Age Group</option>
+          {["u7", "u8", "u9", "u10", "u11", "u12", "u13", "u14", "u15", "u16", "u17", "u18"].map((age) => (
+            <option key={age} value={age}>{age.toUpperCase()}</option>
+          ))}
+        </select>
+
+        <select
+          value={filters.playerSex}
+          onChange={(e) => setFilters((prev) => ({ ...prev, playerSex: e.target.value }))}
+        >
+          <option value="">Filter by Gender</option>
+          <option value="Male">Boys</option>
+          <option value="Female">Girls</option>
+        </select>
+
+        <a className="download-btn" href={`${API_URL}/api/admin/registrations.csv`}>
+          Download CSV
+        </a>
       </div>
 
-      <ModalSection title="Player Details">
-        <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
-        <Detail label="Gender" value={selectedRegistration.playerSex} />
-        <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
-        <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
-      </ModalSection>
+      <h2 className="section-title">
+        List of Registered Players
+        <span className="section-subtitle">
+          (click on player name for full details)
+        </span>
+      </h2>
 
-      <ModalSection title="Parent / Emergency Contact 1">
-        <Detail label="Name" value={selectedRegistration.emergencyContact1?.name} />
-        <Detail label="Phone" value={selectedRegistration.emergencyContact1?.phoneNumber} />
-        <Detail label="Email" value={selectedRegistration.emergencyContact1?.email} />
-        <Detail label="Relationship" value={selectedRegistration.emergencyContact1?.relationship} />
-        <Detail label="Postcode" value={selectedRegistration.emergencyContact1?.postcode} />
-        <Detail label="House Number" value={selectedRegistration.emergencyContact1?.houseNumber} />
-      </ModalSection>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Age Group</th>
+              <th>Gender</th>
+              <th>DOB</th>
+              <th>Parent 1</th>
+              <th>Parent 2</th>
+              <th>Submitted</th>
+              <th></th>
+            </tr>
+          </thead>
 
-      <ModalSection title="Parent / Emergency Contact 2">
-        <Detail label="Name" value={selectedRegistration.emergencyContact2?.name} />
-        <Detail label="Phone" value={selectedRegistration.emergencyContact2?.phoneNumber} />
-        <Detail label="Email" value={selectedRegistration.emergencyContact2?.email} />
-        <Detail label="Relationship" value={selectedRegistration.emergencyContact2?.relationship} />
-        <Detail label="Postcode" value={selectedRegistration.emergencyContact2?.postcode} />
-        <Detail label="House Number" value={selectedRegistration.emergencyContact2?.houseNumber} />
-      </ModalSection>
+          <tbody>
+            {registrations.map((r) => (
+              <tr key={r.id}>
+                <td>
+                  <button className="player-link" onClick={() => setSelectedRegistration(r)}>
+                    {r.playerFirstName} {r.playerSurname}
+                  </button>
+                </td>
+                <td>{String(r.ageGroup).toUpperCase()}</td>
+                <td>{r.playerSex}</td>
+                <td>{new Date(r.playerDob).toLocaleDateString("en-GB")}</td>
+                <td>{r.emergencyContact1?.name || ""}</td>
+                <td>{r.emergencyContact2?.name || ""}</td>
+                <td>{new Date(r.createdAt).toLocaleDateString("en-GB")}</td>
+                <td>
+                  <button className="delete-btn" onClick={() => deleteRegistration(r.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
 
-      <ModalSection title="Medical">
-        <Detail label="Medical Info" value={selectedRegistration.medicalInfo} wide />
-        <Detail label="Allergies" value={selectedRegistration.allergies} wide />
-      </ModalSection>
+            {registrations.length === 0 && (
+              <tr>
+                <td colSpan="8">No registrations found.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
-      <ModalSection title="Permissions">
-        <Detail label="Contact Consent" value={selectedRegistration.consentData ? "Yes" : "No"} />
-        <Detail label="Photo Consent" value={selectedRegistration.consentPhotos ? "Yes" : "No"} />
-        <Detail label="Video Consent" value={selectedRegistration.consentVideos ? "Yes" : "No"} />
-      </ModalSection>
+      {selectedRegistration && (
+        <div className="modal-backdrop" onClick={() => setSelectedRegistration(null)}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>
+                {selectedRegistration.playerFirstName} {selectedRegistration.playerSurname}
+              </h2>
+              <button className="modal-close" onClick={() => setSelectedRegistration(null)}>
+                ×
+              </button>
+            </div>
 
-      <ModalSection title="Signature">
-        <Detail label="Signed By" value={selectedRegistration.parentName} />
-        <Detail label="Signature Date" value={new Date(selectedRegistration.signatureDate).toLocaleDateString("en-GB")} />
-      </ModalSection>
-    </div>
-  </div>
-)}
-      </section>
-    </main>
-  );
-}
+            <ModalSection title="Player Details">
+              <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
+              <Detail label="Gender" value={selectedRegistration.playerSex} />
+              <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
+              <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
+            </ModalSection>
+
+            <ModalSection title="Parent / Emergency Contact 1">
+              <Detail label="Name" value={selectedRegistration.emergencyContact1?.name} />
+              <Detail label="Phone" value={selectedRegistration.emergencyContact1?.phoneNumber} />
+              <Detail label="Email" value={selectedRegistration.emergencyContact1?.email} />
+              <Detail label="Relationship" value={selectedRegistration.emergencyContact1?.relationship} />
+              <Detail label="Postcode" value={selectedRegistration.emergencyContact1?.postcode} />
+              <Detail label="House Number" value={selectedRegistration.emergencyContact1?.houseNumber} />
+            </ModalSection>
+
+            <ModalSection title="Parent / Emergency Contact 2">
+              <Detail label="Name" value={selectedRegistration.emergencyContact2?.name} />
+              <Detail label="Phone" value={selectedRegistration.emergencyContact2?.phoneNumber} />
+              <Detail label="Email" value={selectedRegistration.emergencyContact2?.email} />
+              <Detail label="Relationship" value={selectedRegistration.emergencyContact2?.relationship} />
+              <Detail label="Postcode" value={selectedRegistration.emergencyContact2?.postcode} />
+              <Detail label="House Number" value={selectedRegistration.emergencyContact2?.houseNumber} />
+            </ModalSection>
+
+            <ModalSection title="Medical">
+              <Detail label="Medical Info" value={selectedRegistration.medicalInfo} wide />
+              <Detail label="Allergies" value={selectedRegistration.allergies} wide />
+            </ModalSection>
+
+            <ModalSection title="Permissions">
+              <Detail label="Contact Consent" value={selectedRegistration.consentData ? "Yes" : "No"} />
+              <Detail label="Photo Consent" value={selectedRegistration.consentPhotos ? "Yes" : "No"} />
+              <Detail label="Video Consent" value={selectedRegistration.consentVideos ? "Yes" : "No"} />
+            </ModalSection>
+
+            <ModalSection title="Signature">
+              <Detail label="Signed By" value={selectedRegistration.parentName} />
+              <Detail label="Signature Date" value={new Date(selectedRegistration.signatureDate).toLocaleDateString("en-GB")} />
+            </ModalSection>
+          </div>
+        </div>
+      )}
+    </section>
+  </main>
+);
 
 function percentage(value, total) {
   if (!total) return "0%";
