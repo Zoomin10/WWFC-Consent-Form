@@ -89,6 +89,46 @@ th {
   cursor: pointer;
 }
 
+.player-cell {
+  position: relative;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registration-popover {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 28px;
+  z-index: 20;
+  width: 420px;
+  max-width: 80vw;
+  background: white;
+  color: #10245c;
+  border: 1px solid #cbd3ea;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+  padding: 16px;
+  font-weight: 400;
+}
+
+.player-cell:hover .registration-popover {
+  display: block;
+}
+
+.registration-popover h3 {
+  margin: 0 0 10px;
+}
+
+.registration-popover p {
+  margin: 6px 0;
+  line-height: 1.35;
+}
+
+.registration-popover strong {
+  color: #153ea3;
+}
+
 @media (max-width: 900px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
