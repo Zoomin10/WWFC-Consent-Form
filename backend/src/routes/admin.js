@@ -66,21 +66,39 @@ router.get("/registrations.csv", async (req, res) => {
 
     const csvStringifier = createObjectCsvStringifier({
       header: [
-        { id: "createdAt", title: "Created At" },
+      { id: "createdAt", title: "Created At" },
         { id: "ageGroup", title: "Age Group" },
         { id: "playerFirstName", title: "Player First Name" },
         { id: "playerSurname", title: "Player Surname" },
         { id: "playerDob", title: "Player DOB" },
-        { id: "playerSex", title: "Sex" },
-        { id: "email", title: "Email" },
-        { id: "postcode", title: "Postcode" },
-        { id: "houseNumber", title: "House Number" },
+        { id: "playerSex", title: "Gender" },
+
+        { id: "contact1Name", title: "Emergency Contact 1 Name" },
+        { id: "contact1Dob", title: "Emergency Contact 1 DOB" },
+        { id: "contact1PhoneNumber", title: "Emergency Contact 1 Phone" },
+        { id: "contact1Postcode", title: "Emergency Contact 1 Postcode" },
+        { id: "contact1HouseNumber", title: "Emergency Contact 1 House Number" },
+        { id: "contact1Email", title: "Emergency Contact 1 Email" },
+        { id: "contact1Relationship", title: "Emergency Contact 1 Relationship" },
+
+        { id: "contact2Name", title: "Emergency Contact 2 Name" },
+        { id: "contact2Dob", title: "Emergency Contact 2 DOB" },
+        { id: "contact2PhoneNumber", title: "Emergency Contact 2 Phone" },
+        { id: "contact2Postcode", title: "Emergency Contact 2 Postcode" },
+        { id: "contact2HouseNumber", title: "Emergency Contact 2 House Number" },
+        { id: "contact2Email", title: "Emergency Contact 2 Email" },
+        { id: "contact2Relationship", title: "Emergency Contact 2 Relationship" },
+
+        { id: "email", title: "Primary Email" },
+        { id: "postcode", title: "Primary Postcode" },
+        { id: "houseNumber", title: "Primary House Number" },
         { id: "medicalInfo", title: "Medical Info" },
         { id: "allergies", title: "Allergies" },
         { id: "consentData", title: "Contact Consent" },
         { id: "consentPhotos", title: "Photo Consent" },
         { id: "consentVideos", title: "Video Consent" },
         { id: "parentName", title: "Parent Name" },
+        { id: "parentSignature", title: "Parent Signature" },
         { id: "signatureDate", title: "Signature Date" },
       ],
     });
@@ -89,12 +107,43 @@ router.get("/registrations.csv", async (req, res) => {
   if (!date) return "";
   return new Date(date).toLocaleDateString("en-GB"); // DD/MM/YYYY
 }
-const formattedForms = forms.map((f) => ({
-  ...f,
-  createdAt: formatDate(f.createdAt),
-  playerDob: formatDate(f.playerDob),
-  signatureDate: formatDate(f.signatureDate),
-}));
+
+  const formattedForms = forms.map((f) => ({
+      createdAt: formatDate(f.createdAt),
+      ageGroup: String(f.ageGroup).toUpperCase(),
+      playerFirstName: f.playerFirstName,
+      playerSurname: f.playerSurname,
+      playerDob: formatDate(f.playerDob),
+      playerSex: f.playerSex,
+
+      contact1Name: f.emergencyContact1?.name || "",
+      contact1Dob: formatDate(f.emergencyContact1?.dob),
+      contact1PhoneNumber: f.emergencyContact1?.phoneNumber || "",
+      contact1Postcode: f.emergencyContact1?.postcode || "",
+      contact1HouseNumber: f.emergencyContact1?.houseNumber || "",
+      contact1Email: f.emergencyContact1?.email || "",
+      contact1Relationship: f.emergencyContact1?.relationship || "",
+
+      contact2Name: f.emergencyContact2?.name || "",
+      contact2Dob: formatDate(f.emergencyContact2?.dob),
+      contact2PhoneNumber: f.emergencyContact2?.phoneNumber || "",
+      contact2Postcode: f.emergencyContact2?.postcode || "",
+      contact2HouseNumber: f.emergencyContact2?.houseNumber || "",
+      contact2Email: f.emergencyContact2?.email || "",
+      contact2Relationship: f.emergencyContact2?.relationship || "",
+
+      email: f.email || "",
+      postcode: f.postcode || "",
+      houseNumber: f.houseNumber || "",
+      medicalInfo: f.medicalInfo || "",
+      allergies: f.allergies || "",
+      consentData: f.consentData ? "Yes" : "No",
+      consentPhotos: f.consentPhotos ? "Yes" : "No",
+      consentVideos: f.consentVideos ? "Yes" : "No",
+      parentName: f.parentName || "",
+      parentSignature: f.parentSignature || "",
+      signatureDate: formatDate(f.signatureDate),
+    }));
 
 const csv =
   csvStringifier.getHeaderString() +

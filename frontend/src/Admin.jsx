@@ -55,8 +55,8 @@ export default function Admin() {
             <Stat title="Total registrations" value={stats.total} />
             <Stat title="Boys" value={stats.boys} />
             <Stat title="Girls" value={stats.girls} />
-            <Stat title="Development U11 & below" value={stats.development} />
-            <Stat title="Competitive U12 & above" value={stats.competitive} />
+            <Stat title="Development Age Groups" value={stats.development} />
+            <Stat title="Competitive Age Groups" value={stats.competitive} />
           </div>
         )}
 
