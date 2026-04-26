@@ -1,0 +1,106 @@
+.admin-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: #f4f6fb;
+  color: #10245c;
+}
+
+.admin-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat {
+  background: #eef2ff;
+  padding: 18px;
+  border-radius: 14px;
+}
+
+.stat span {
+  display: block;
+  font-size: 0.9rem;
+  color: #4d5b86;
+}
+
+.stat strong {
+  display: block;
+  font-size: 2rem;
+  margin-top: 8px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.admin-actions select,
+.download-btn {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd3ea;
+}
+
+.download-btn {
+  background: #153ea3;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+th {
+  background: #f8fafc;
+}
+
+.delete-btn {
+  background: #b91c1c;
+  color: white;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-card {
+    padding: 18px;
+  }
+}

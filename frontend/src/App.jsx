@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import Admin from "./Admin";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -46,6 +47,9 @@ const initialForm = {
 };
 
 function App() {
+    if (window.location.pathname === "/admin") {
+  return <Admin />;
+}
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState("");
 
