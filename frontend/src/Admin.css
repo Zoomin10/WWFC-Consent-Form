@@ -9,14 +9,16 @@
   max-width: 1200px;
   margin: 0 auto 20px;
   display: flex;
+   text-align: center;
   align-items: center;
   gap: 16px;
   padding: 0 4px;
 }
 
 .admin-logo {
-  height: 60px;
-  width: auto;
+  height: 70px;
+  display: block;
+  margin: 0 auto 10px;
 }
 
 .admin-header h1 {

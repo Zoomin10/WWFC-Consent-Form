@@ -49,7 +49,7 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
   return (
     <main className="admin-page">
        <header className="admin-header">
-    <img src="/wwfc-header.png" alt="WWFC" className="admin-logo" />
+    <img src="/wwfc-letter-head.png" alt="WWFC" className="admin-logo" />
     <h1>WWFC Player Registrations Dashboard</h1>
   </header>
       <section className="admin-card">
