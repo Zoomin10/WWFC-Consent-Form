@@ -203,6 +203,14 @@ th {
   grid-column: 1 / -1;
 }
 
+.stat em {
+  display: block;
+  margin-top: 6px;
+  color: #4d5b86;
+  font-style: normal;
+  font-weight: 700;
+}
+
 .detail span {
   display: block;
   color: #4d5b86;

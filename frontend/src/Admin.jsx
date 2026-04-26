@@ -52,14 +52,39 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
         <h1>WWFC Player Registrations Dashboard</h1>
 
         {stats && (
-          <div className="stats-grid">
-            <Stat title="Total registrations" value={stats.total} />
-            <Stat title="Male" value={stats.boys} />
-            <Stat title="Female" value={stats.girls} />
-            <Stat title="Development Age Groups" value={stats.development} />
-            <Stat title="Competitive Age Groups" value={stats.competitive} />
-            <Stat title="Adult Players" value={stats.adult} />
-          </div>
+        <div className="stats-grid">
+  <Stat title="Total registrations" value={stats.total} />
+
+  <Stat
+    title="Male"
+    value={stats.boys}
+    percentage={percentage(stats.boys, stats.total)}
+  />
+
+  <Stat
+    title="Female"
+    value={stats.girls}
+    percentage={percentage(stats.girls, stats.total)}
+  />
+
+  <Stat
+    title="Development U11 & below"
+    value={stats.development}
+    percentage={percentage(stats.development, stats.total)}
+  />
+
+  <Stat
+    title="Competitive U12 & above"
+    value={stats.competitive}
+    percentage={percentage(stats.competitive, stats.total)}
+  />
+
+  <Stat
+    title="Adult Players"
+    value={stats.adult}
+    percentage={percentage(stats.adult, stats.total)}
+  />
+</div>
         )}
 
         <div className="admin-actions">
@@ -182,15 +207,21 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
   );
 }
 
+function percentage(value, total) {
+  if (!total) return "0%";
+  return `${Math.round((value / total) * 100)}%`;
+}
 
-function Stat({ title, value }) {
+function Stat({ title, value, percentage }) {
   return (
     <div className="stat">
       <span>{title}</span>
       <strong>{value}</strong>
+      {percentage && <em>{percentage}</em>}
     </div>
   );
 }
+
 function Detail({ label, value, wide }) {
   return (
     <div className={wide ? "detail detail-wide" : "detail"}>
