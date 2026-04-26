@@ -1,16 +1,117 @@
-# React + Vite
+# WWFC Digital Consent App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application for managing youth football player registrations and digital consent forms for Wroughton & Wichelstowe Football Club.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+### Player Registration (Frontend)
+- Digital consent form
+- Player details capture
+- Emergency contact information (2 contacts)
+- Medical information & allergies
+- Consent flags (data, photos, videos)
+- Signature capture (typed)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Admin Dashboard
+- Overview statistics:
+  - Total registrations
+  - Male / Female split (%)
+  - Development vs Competitive players
+  - Adult players
+- Filter by:
+  - Age group
+  - Gender
+- List of all registrations
+- Click-to-view full registration (modal)
+- Delete registrations
+- Export to CSV
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏗️ Tech Stack
+
+### Frontend
+- React (Vite)
+- CSS (custom styling)
+- Fetch API
+
+### Backend
+- Node.js
+- Express
+- Prisma ORM
+
+### Database
+- PostgreSQL (Railway)
+
+### Hosting
+- Railway (frontend + backend + database)
+
+---
+
+## 📁 Project Structure
+    Consent/
+    ├── frontend/ # React app
+    │ ├── src/
+    │ ├── public/
+    │
+    ├── backend/ # Node/Express API
+    │ ├── src/
+    │ ├── prisma/
+    │
+    ├── scripts/ # helper scripts
+    └── README.md
+
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`backend/.env`)
+
+```env
+DATABASE_URL=your_postgres_connection
+NODE_ENV=development
+
+    VITE_API_URL=http://localhost:4000
+
+🌐 Deployment (Railway)
+Environments
+Environment	Branch	Purpose
+Development	development	Testing
+Production	production	Live system
+Backend
+Build: npm install && npx prisma generate
+Start: npx prisma migrate deploy && npm start
+Frontend
+Build: standard Vite build
+
+Ensure:
+
+    VITE_API_URL = backend service URL
+
+📊 Admin Access
+
+Admin dashboard is available at:
+
+/admin
+
+📦 Scripts
+    Switch environments
+        ./scripts/switch-env.sh dev
+        ./scripts/switch-env.sh prod
+    Release to production
+        ./scripts/release-prod.sh
+
+🔒 Future Improvements
+    Admin authentication (JWT)
+    Role-based access
+    Excel export (formatted)
+    Email notifications
+    Player search
+    Audit logging
+    Mobile UI enhancements
+
+📄 License
+
+    Private internal project
