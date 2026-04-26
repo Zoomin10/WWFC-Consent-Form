@@ -5,6 +5,25 @@
   color: #10245c;
 }
 
+.admin-header {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 4px;
+}
+
+.admin-logo {
+  height: 60px;
+  width: auto;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #10245c;
+}
 .admin-card {
   max-width: 1200px;
   margin: 0 auto;
