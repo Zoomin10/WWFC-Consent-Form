@@ -177,32 +177,46 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
         </button>
       </div>
 
-      <div className="modal-grid">
+      <ModalSection title="Player Details">
         <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
         <Detail label="Gender" value={selectedRegistration.playerSex} />
         <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
         <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
+      </ModalSection>
 
-        <Detail label="Parent 1" value={selectedRegistration.emergencyContact1?.name} />
-        <Detail label="Parent 1 Phone" value={selectedRegistration.emergencyContact1?.phoneNumber} />
-        <Detail label="Parent 1 Email" value={selectedRegistration.emergencyContact1?.email} />
-        <Detail label="Parent 1 Relationship" value={selectedRegistration.emergencyContact1?.relationship} />
+      <ModalSection title="Parent / Emergency Contact 1">
+        <Detail label="Name" value={selectedRegistration.emergencyContact1?.name} />
+        <Detail label="Phone" value={selectedRegistration.emergencyContact1?.phoneNumber} />
+        <Detail label="Email" value={selectedRegistration.emergencyContact1?.email} />
+        <Detail label="Relationship" value={selectedRegistration.emergencyContact1?.relationship} />
+        <Detail label="Postcode" value={selectedRegistration.emergencyContact1?.postcode} />
+        <Detail label="House Number" value={selectedRegistration.emergencyContact1?.houseNumber} />
+      </ModalSection>
 
-        <Detail label="Parent 2" value={selectedRegistration.emergencyContact2?.name} />
-        <Detail label="Parent 2 Phone" value={selectedRegistration.emergencyContact2?.phoneNumber} />
-        <Detail label="Parent 2 Email" value={selectedRegistration.emergencyContact2?.email} />
-        <Detail label="Parent 2 Relationship" value={selectedRegistration.emergencyContact2?.relationship} />
+      <ModalSection title="Parent / Emergency Contact 2">
+        <Detail label="Name" value={selectedRegistration.emergencyContact2?.name} />
+        <Detail label="Phone" value={selectedRegistration.emergencyContact2?.phoneNumber} />
+        <Detail label="Email" value={selectedRegistration.emergencyContact2?.email} />
+        <Detail label="Relationship" value={selectedRegistration.emergencyContact2?.relationship} />
+        <Detail label="Postcode" value={selectedRegistration.emergencyContact2?.postcode} />
+        <Detail label="House Number" value={selectedRegistration.emergencyContact2?.houseNumber} />
+      </ModalSection>
 
+      <ModalSection title="Medical">
         <Detail label="Medical Info" value={selectedRegistration.medicalInfo} wide />
         <Detail label="Allergies" value={selectedRegistration.allergies} wide />
+      </ModalSection>
 
+      <ModalSection title="Permissions">
         <Detail label="Contact Consent" value={selectedRegistration.consentData ? "Yes" : "No"} />
         <Detail label="Photo Consent" value={selectedRegistration.consentPhotos ? "Yes" : "No"} />
         <Detail label="Video Consent" value={selectedRegistration.consentVideos ? "Yes" : "No"} />
+      </ModalSection>
 
+      <ModalSection title="Signature">
         <Detail label="Signed By" value={selectedRegistration.parentName} />
         <Detail label="Signature Date" value={new Date(selectedRegistration.signatureDate).toLocaleDateString("en-GB")} />
-      </div>
+      </ModalSection>
     </div>
   </div>
 )}
@@ -232,5 +246,13 @@ function Detail({ label, value, wide }) {
       <span>{label}</span>
       <strong>{value || "—"}</strong>
     </div>
+  );
+}
+function ModalSection({ title, children }) {
+  return (
+    <section className="modal-section">
+      <h3>{title}</h3>
+      <div className="modal-grid">{children}</div>
+    </section>
   );
 }
