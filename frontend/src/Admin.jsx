@@ -69,6 +69,12 @@ export default function Admin() {
               <div className="section-divider" />
         </>
       )}
+        <h2 className="section-title no-line">
+  List of Registered Players
+  <span className="section-subtitle">
+    (click on player name for full details)
+  </span>
+</h2>
 
       <div className="admin-actions">
         <select
@@ -95,14 +101,8 @@ export default function Admin() {
         </a>
       </div>
 
-      <h2 className="section-title">
-        List of Registered Players
-        <span className="section-subtitle">
-          (click on player name for full details)
-        </span>
-      </h2>
-            <div className="admin-actions"></div>
-            
+        
+
       <div className="table-wrap">
         <table>
           <thead>
