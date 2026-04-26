@@ -66,7 +66,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin: 24px 0;
-  flex-wrap: wrap;
+ 
 }
 
 .admin-actions select,
@@ -278,12 +278,12 @@ th {
 
 @media (max-width: 600px) {
   .admin-actions {
-    gap: 8px;
+    gap: 6px;
   }
 
   .admin-actions select,
   .download-btn {
     height: 44px;
-    font-size: 0.85rem;
+    font-size: 0.65rem;
   }
 }
