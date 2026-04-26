@@ -8,7 +8,7 @@
 .admin-header {
   max-width: 1200px;
   margin: 0 auto 20px;
-  display: flex;
+  
    text-align: center;
   align-items: center;
   gap: 16px;
@@ -17,6 +17,7 @@
 
 .admin-logo {
   height: 70px;
+    width: auto;
   display: block;
   margin: 0 auto 10px;
 }
