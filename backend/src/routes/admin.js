@@ -149,7 +149,8 @@ const csv =
   csvStringifier.stringifyRecords(formattedForms);
 
     res.header("Content-Type", "text/csv");
-    res.attachment("wwfc-registrations.csv");
+const today = new Date().toLocaleDateString("en-GB").replace(/\//g, "-");
+res.attachment(`wwfc-registrations-${today}.csv`);
     res.send(csv);
   } catch (err) {
     console.error(err);
