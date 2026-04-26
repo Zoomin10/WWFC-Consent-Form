@@ -95,7 +95,7 @@ router.get("/registrations.csv", async (req, res) => {
         { id: "consentData", title: "Contact Consent" },
         { id: "consentPhotos", title: "Photo Consent" },
         { id: "consentVideos", title: "Video Consent" },
-        { id: "parentName", title: "Parent Name" },
+        { id: "parentName", title: "Printed Name" },
         { id: "parentSignature", title: "Parent Signature" },
         { id: "signatureDate", title: "Signature Date" },
       ],

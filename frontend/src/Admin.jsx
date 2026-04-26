@@ -67,7 +67,7 @@ export default function Admin() {
               setFilters((prev) => ({ ...prev, ageGroup: e.target.value }))
             }
           >
-            <option value="">All age groups</option>
+            <option value="">Filter by Age Group</option>
             {["u7", "u8", "u9", "u10", "u11", "u12", "u13", "u14", "u15", "u16", "u17", "u18"].map((age) => (
               <option key={age} value={age}>{age.toUpperCase()}</option>
             ))}
@@ -79,7 +79,7 @@ export default function Admin() {
               setFilters((prev) => ({ ...prev, playerSex: e.target.value }))
             }
           >
-            <option value="">All boys/girls</option>
+            <option value="">Filter by Gender</option>
             <option value="Male">Boys</option>
             <option value="Female">Girls</option>
           </select>
