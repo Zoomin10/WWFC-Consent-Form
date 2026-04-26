@@ -111,8 +111,8 @@ export default function Admin() {
                   <td>{String(r.ageGroup).toUpperCase()}</td>
                   <td>{r.playerSex}</td>
                   <td>{new Date(r.playerDob).toLocaleDateString()}</td>
-                  <td>{r.contact1Name}</td>
-                  <td>{r.contact2Name}</td>
+                   <td>{r.emergencyContact1?.name || ""}</td>
+                  <td>{r.emergencyContact2?.name || ""}</td>
                   <td>{new Date(r.createdAt).toLocaleDateString()}</td>
                   <td>
                     <button className="delete-btn" onClick={() => deleteRegistration(r.id)}>
