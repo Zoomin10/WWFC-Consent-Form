@@ -66,6 +66,7 @@ export default function Admin() {
             <Stat title="Competitive U12 & over" value={stats.competitive} percentage={percentage(stats.competitive, stats.total)} />
             <Stat title="Adult Players" value={stats.adult} percentage={percentage(stats.adult, stats.total)} />
           </div>
+              <div className="section-divider" />
         </>
       )}
 
@@ -100,7 +101,8 @@ export default function Admin() {
           (click on player name for full details)
         </span>
       </h2>
-
+            <div className="admin-actions"></div>
+            
       <div className="table-wrap">
         <table>
           <thead>

@@ -162,8 +162,12 @@ th {
 
 .section-title {
   margin-top: 10px;
-  margin-bottom: 12px;
+
   color: #10245c;
+}
+
+.section-divider {
+  margin: 24px 0 16px;
 }
 
 .section-subtitle {
