@@ -59,11 +59,11 @@ export default function Admin() {
           <h2 className="section-title">Dashboard</h2>
 
           <div className="stats-grid">
-            <Stat title="Total registrations" value={stats.total} />
-            <Stat title="Male" value={stats.boys} percentage={percentage(stats.boys, stats.total)} />
-            <Stat title="Female" value={stats.girls} percentage={percentage(stats.girls, stats.total)} />
-            <Stat title="Development U11 & below" value={stats.development} percentage={percentage(stats.development, stats.total)} />
-            <Stat title="Competitive U12 & over" value={stats.competitive} percentage={percentage(stats.competitive, stats.total)} />
+            <Stat title="Total Registrations" value={stats.total} />
+            <Stat title="Male Players" value={stats.boys} percentage={percentage(stats.boys, stats.total)} />
+            <Stat title="Female Players" value={stats.girls} percentage={percentage(stats.girls, stats.total)} />
+            <Stat title="Development U11 & Below" value={stats.development} percentage={percentage(stats.development, stats.total)} />
+            <Stat title="Competitive U12 & Over" value={stats.competitive} percentage={percentage(stats.competitive, stats.total)} />
             <Stat title="Adult Players" value={stats.adult} percentage={percentage(stats.adult, stats.total)} />
           </div>
               <div className="section-divider" />
