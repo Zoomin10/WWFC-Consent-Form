@@ -40,7 +40,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 per row */
   gap: 8px;
-  margin: 16px 0;
+  margin: 8px 0;
 }
 
 .stat {
