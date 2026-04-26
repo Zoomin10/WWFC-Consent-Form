@@ -62,7 +62,8 @@
 }
 
 .admin-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin: 24px 0;
   flex-wrap: wrap;
@@ -70,16 +71,23 @@
 
 .admin-actions select,
 .download-btn {
-  padding: 12px;
+  width: 100%;
+  height: 48px;
+  padding: 0 12px;
   border-radius: 10px;
   border: 1px solid #cbd3ea;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-sizing: border-box;
 }
 
 .download-btn {
   background: #153ea3;
   color: white;
   text-decoration: none;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .table-wrap {
@@ -268,4 +276,14 @@ th {
   }
 }
 
+@media (max-width: 600px) {
+  .admin-actions {
+    gap: 8px;
+  }
 
+  .admin-actions select,
+  .download-btn {
+    height: 44px;
+    font-size: 0.85rem;
+  }
+}
