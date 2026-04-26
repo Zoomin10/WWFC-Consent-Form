@@ -48,13 +48,13 @@ export default function Admin() {
   return (
     <main className="admin-page">
       <section className="admin-card">
-        <h1>WWFC Admin Dashboard</h1>
+        <h1>WWFC Player Registrations Dashboard</h1>
 
         {stats && (
           <div className="stats-grid">
             <Stat title="Total registrations" value={stats.total} />
-            <Stat title="Boys" value={stats.boys} />
-            <Stat title="Girls" value={stats.girls} />
+            <Stat title="Male" value={stats.boys} />
+            <Stat title="Female" value={stats.girls} />
             <Stat title="Development Age Groups" value={stats.development} />
             <Stat title="Competitive Age Groups" value={stats.competitive} />
             <Stat title="Adult Players" value={stats.adult} />
@@ -96,10 +96,10 @@ export default function Admin() {
               <tr>
                 <th>Player</th>
                 <th>Age Group</th>
-                <th>Sex</th>
+                <th>Gender</th>
                 <th>DOB</th>
-                <th>Parent</th>
-                <th>Email</th>
+                <th>Parent 1</th>
+                <th>Parent 2</th>
                 <th>Submitted</th>
                 <th></th>
               </tr>
@@ -111,8 +111,8 @@ export default function Admin() {
                   <td>{String(r.ageGroup).toUpperCase()}</td>
                   <td>{r.playerSex}</td>
                   <td>{new Date(r.playerDob).toLocaleDateString()}</td>
-                  <td>{r.parentName}</td>
-                  <td>{r.email}</td>
+                  <td>{r.contact1Name}</td>
+                  <td>{r.contact2Name}</td>
                   <td>{new Date(r.createdAt).toLocaleDateString()}</td>
                   <td>
                     <button className="delete-btn" onClick={() => deleteRegistration(r.id)}>
