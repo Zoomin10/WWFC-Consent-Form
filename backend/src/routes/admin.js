@@ -85,9 +85,20 @@ router.get("/registrations.csv", async (req, res) => {
       ],
     });
 
-    const csv =
-      csvStringifier.getHeaderString() +
-      csvStringifier.stringifyRecords(forms);
+    function formatDate(date) {
+  if (!date) return "";
+  return new Date(date).toLocaleDateString("en-GB"); // DD/MM/YYYY
+}
+const formattedForms = forms.map((f) => ({
+  ...f,
+  createdAt: formatDate(f.createdAt),
+  playerDob: formatDate(f.playerDob),
+  signatureDate: formatDate(f.signatureDate),
+}));
+
+const csv =
+  csvStringifier.getHeaderString() +
+  csvStringifier.stringifyRecords(formattedForms);
 
     res.header("Content-Type", "text/csv");
     res.attachment("wwfc-registrations.csv");
