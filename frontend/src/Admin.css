@@ -45,7 +45,7 @@
 
 .stat {
   background: #eef2ff;
-  padding: 18px;
+  padding: 10px;
   border-radius: 14px;
 }
 
@@ -57,7 +57,7 @@
 
 .stat strong {
   display: block;
-  font-size: 2rem;
+  font-size: 1.4rem;
   margin-top: 8px;
 }
 
@@ -231,6 +231,7 @@ th {
   color: #4d5b86;
   font-style: normal;
   font-weight: 700;
+   font-size: 0.75rem;
 }
 
 .detail span {
@@ -247,19 +248,19 @@ th {
 
 @media (max-width: 700px) {
   .modal-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 900px) {
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .admin-card {
