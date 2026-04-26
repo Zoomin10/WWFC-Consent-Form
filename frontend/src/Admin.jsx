@@ -55,8 +55,11 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
       <section className="admin-card">
        
 
-        {stats && (
-        <div className="stats-grid">
+     {stats && (
+  <>
+    <h2 className="section-title">Dashboard</h2>
+
+    <div className="stats-grid">
   <Stat title="Total registrations" value={stats.total} />
 
   <Stat
@@ -120,8 +123,15 @@ const [selectedRegistration, setSelectedRegistration] = useState(null);
           </a>
         </div>
 
- 
-<div className="table-wrap">
+<>
+  <h2 className="section-title">
+    List of Registered Players
+    <span className="section-subtitle">
+      (click on player name for full details)
+    </span>
+  </h2>
+
+  <div className="table-wrap">
   <table>
     <thead>
       <tr>

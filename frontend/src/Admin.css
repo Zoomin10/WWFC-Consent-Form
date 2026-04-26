@@ -160,6 +160,19 @@ th {
   color: #153ea3;
 }
 
+.section-title {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  color: #10245c;
+}
+
+.section-subtitle {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #4d5b86;
+  margin-top: 4px;
+}
 .player-link {
   background: none;
   border: 0;
