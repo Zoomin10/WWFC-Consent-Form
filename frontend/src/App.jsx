@@ -166,7 +166,15 @@ function App() {
           <YesNo label="I give permission for videos to be taken and used by Wroughton & Wichelstowe FC." value={form.consentVideos} onChange={(v) => updateField("consentVideos", v)} />
 
           <p className="disclaimer">
-            Wroughton & Wichelstowe FC adhere to the England FA guidelines for use of photos and videos, safeguarding and social media.
+              Wroughton & Wichelstowe FC adhere to the England FA guidelines for the use of photos and videos, safeguarding and social media. 
+  For more information, please see the FA guidance for parents and carers{" "}
+  <a 
+    href="https://www.thefa.com/football-rules-governance/safeguarding/section-8-parents-and-carers" 
+    target="_blank" 
+    rel="noreferrer"
+  >
+    here
+  </a>.
           </p>
 
           <h2>Parent / Carer Signature</h2>
