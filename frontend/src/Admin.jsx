@@ -59,7 +59,7 @@ export default function Admin() {
           <h2 className="section-title">Dashboard</h2>
 
           <div className="stats-grid">
-            <Stat title="Total Consent Forms" value={stats.total} />
+            <Stat title="Total Forms" value={stats.total} />
             <Stat title="Male Players" value={stats.boys} percentage={percentage(stats.boys, stats.total)} />
             <Stat title="Female Players" value={stats.girls} percentage={percentage(stats.girls, stats.total)} />
             <Stat title="Development U11 & Below" value={stats.development} percentage={percentage(stats.development, stats.total)} />
