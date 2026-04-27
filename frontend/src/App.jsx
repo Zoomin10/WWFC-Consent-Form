@@ -44,6 +44,8 @@ const initialForm = {
   parentSignature: "",
   parentName: "",
   signatureDate: "",
+
+  acceptedPrivacyPolicy: false,
 };
 
 function App() {
@@ -186,7 +188,24 @@ function App() {
             </label>
           </div>
 
-          <button type="submit">Submit Consent Form</button>
+<label className="privacy-check">
+  <input
+    type="checkbox"
+    checked={form.acceptedPrivacyPolicy}
+    onChange={(e) => updateField("acceptedPrivacyPolicy", e.target.checked)}
+    required
+  />
+  <span>
+    I have read and accept the{" "}
+    <a href="/privacy-policy.html" target="_blank" rel="noreferrer">
+      Privacy Policy
+    </a>
+    .
+  </span>
+</label>
+        <button type="submit" disabled={!form.acceptedPrivacyPolicy}>
+  Submit Consent Form
+</button>
 
           {status && <p className="status">{status}</p>}
         </form>

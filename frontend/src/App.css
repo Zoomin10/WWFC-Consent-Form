@@ -102,7 +102,29 @@ button:hover {
   font-weight: 700;
   margin-top: 16px;
 }
+.privacy-check {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 600;
+  margin-top: 24px;
+}
 
+.privacy-check input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.privacy-check a {
+  color: #153ea3;
+  font-weight: 700;
+}
+
+button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
 @media (max-width: 700px) {
   .page {
     padding: 12px;
