@@ -50,7 +50,7 @@ export default function Admin() {
   <main className="admin-page">
     <header className="admin-header">
       <img src="/wwfc-letter-head.png" alt="WWFC" className="admin-logo" />
-      <h1>Player Registrations Dashboard</h1>
+      <h1>Player Consent Forms</h1>
     </header>
 
     <section className="admin-card">
@@ -59,7 +59,7 @@ export default function Admin() {
           <h2 className="section-title">Dashboard</h2>
 
           <div className="stats-grid">
-            <Stat title="Total Registrations" value={stats.total} />
+            <Stat title="Total Consent Forms" value={stats.total} />
             <Stat title="Male Players" value={stats.boys} percentage={percentage(stats.boys, stats.total)} />
             <Stat title="Female Players" value={stats.girls} percentage={percentage(stats.girls, stats.total)} />
             <Stat title="Development U11 & Below" value={stats.development} percentage={percentage(stats.development, stats.total)} />
@@ -70,7 +70,7 @@ export default function Admin() {
         </>
       )}
         <h2 className="section-title no-line">
-  List of Registered Players
+  Player Details - Summary View
   <span className="section-subtitle">
     (click on player name for full details)
   </span>
