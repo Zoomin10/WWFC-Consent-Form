@@ -4,13 +4,38 @@ import "./Admin.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const [stats, setStats] = useState(null);
   const [registrations, setRegistrations] = useState([]);
   const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
   const [selectedRegistration, setSelectedRegistration] = useState(null);
 
+  async function handleLogin(e) {
+  e.preventDefault();
+  setLoginError("");
+
+  const res = await fetch(`${API_URL}/api/admin/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ password }),
+  });
+
+  if (!res.ok) {
+    setLoginError("Incorrect password");
+    return;
+  }
+
+  setIsAuthenticated(true);
+  loadDashboard();
+  loadRegistrations();
+}
   async function loadDashboard() {
-    const res = await fetch(`${API_URL}/api/admin/dashboard`);
+const res = await fetch(`${API_URL}/api/admin/dashboard`, {
+  credentials: "include",
+});
     const data = await res.json();
     setStats(data);
   }
@@ -21,7 +46,9 @@ export default function Admin() {
     if (filters.ageGroup) params.append("ageGroup", filters.ageGroup);
     if (filters.playerSex) params.append("playerSex", filters.playerSex);
 
-    const res = await fetch(`${API_URL}/api/admin/registrations?${params}`);
+const res = await fetch(`${API_URL}/api/admin/registrations?${params}`, {
+  credentials: "include",
+});
     const data = await res.json();
     setRegistrations(data);
   }
@@ -31,21 +58,46 @@ export default function Admin() {
     if (!ok) return;
 
     await fetch(`${API_URL}/api/admin/registrations/${id}`, {
-      method: "DELETE",
-    });
+  method: "DELETE",
+  credentials: "include",
+});
 
     loadDashboard();
     loadRegistrations();
   }
 
-  useEffect(() => {
-    loadDashboard();
-  }, []);
+useEffect(() => {
+  if (!isAuthenticated) return;
+  loadDashboard();
+}, [isAuthenticated]);
 
-  useEffect(() => {
-    loadRegistrations();
-  }, [filters]);
+useEffect(() => {
+  if (!isAuthenticated) return;
+  loadRegistrations();
+}, [filters, isAuthenticated]);
 
+if (!isAuthenticated) {
+  return (
+    <main className="admin-page">
+      <section className="admin-card">
+        <h1>Admin Login</h1>
+
+        <form onSubmit={handleLogin}>
+          <label>Admin password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          {loginError && <p className="error">{loginError}</p>}
+
+          <button type="submit">Log in</button>
+        </form>
+      </section>
+    </main>
+  );
+}
   return (
   <main className="admin-page">
     <header className="admin-header">
