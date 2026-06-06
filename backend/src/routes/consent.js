@@ -39,9 +39,12 @@ const consentFormSchema = z.object({
   emergencyContact1: contactSchema,
   emergencyContact2: contactSchema,
 
-  postcode: z.string().trim().min(3).max(12),
-  houseNumber: z.string().trim().min(1).max(20),
-  email: z.string().trim().email().max(150),
+postcode: z.string().trim().max(12).optional().default(""),
+houseNumber: z.string().trim().max(20).optional().default(""),
+email: z.union([
+  z.string().trim().email().max(150),
+  z.literal("")
+]).optional().default(""),
 
   medicalInfo: z.string().trim().max(1000).default(""),
   allergies: z.string().trim().max(1000).optional().nullable(),
