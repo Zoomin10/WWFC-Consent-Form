@@ -6,10 +6,21 @@ const consentRoutes = require("./routes/consent");
 const adminRoutes = require("./routes/admin");
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://wwfc-consent-form-development.up.railway.app",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked origin: ${origin}`));
+    },
     credentials: true,
   })
 );
