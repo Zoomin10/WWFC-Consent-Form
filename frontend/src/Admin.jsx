@@ -12,6 +12,15 @@ export default function Admin() {
   const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
   const [selectedRegistration, setSelectedRegistration] = useState(null);
 
+  async function checkAuth() {
+  const res = await fetch(`${API_URL}/api/admin/me`, {
+    credentials: "include",
+  });
+
+  if (res.ok) {
+    setIsAuthenticated(true);
+  }
+}
   async function handleLogin(e) {
   e.preventDefault();
   setLoginError("");
@@ -65,6 +74,9 @@ const res = await fetch(`${API_URL}/api/admin/registrations?${params}`, {
     loadDashboard();
     loadRegistrations();
   }
+useEffect(() => {
+  checkAuth();
+}, []);
 
 useEffect(() => {
   if (!isAuthenticated) return;
