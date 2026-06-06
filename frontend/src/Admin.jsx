@@ -12,6 +12,19 @@ export default function Admin() {
   const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
   const [selectedRegistration, setSelectedRegistration] = useState(null);
 
+  async function logout() {
+  await fetch(`${API_URL}/api/admin/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  setIsAuthenticated(false);
+  setStats(null);
+  setRegistrations([]);
+  setPassword("");
+}
+
+
   async function checkAuth() {
   const res = await fetch(`${API_URL}/api/admin/me`, {
     credentials: "include",
@@ -88,6 +101,36 @@ useEffect(() => {
   loadRegistrations();
 }, [filters, isAuthenticated]);
 
+useEffect(() => {
+  if (!isAuthenticated) return;
+
+  let timeoutId;
+
+  function resetTimer() {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      logout();
+      alert("You have been logged out due to inactivity.");
+    }, 15 * 60 * 1000); // 15 minutes
+  }
+
+  const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
+
+  events.forEach((event) => {
+    window.addEventListener(event, resetTimer);
+  });
+
+  resetTimer();
+
+  return () => {
+    clearTimeout(timeoutId);
+    events.forEach((event) => {
+      window.removeEventListener(event, resetTimer);
+    });
+  };
+}, [isAuthenticated]);
+
 if (!isAuthenticated) {
   return (
     <main className="admin-page">
@@ -115,6 +158,9 @@ if (!isAuthenticated) {
     <header className="admin-header">
       <img src="/wwfc-letter-head.png" alt="WWFC" className="admin-logo" />
       <h1>Player Consent Forms</h1>
+        <button className="logout-btn" onClick={logout}>
+    Logout
+  </button>
     </header>
 
     <section className="admin-card">
