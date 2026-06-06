@@ -87,14 +87,29 @@ function App() {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Submit failed");
+if (!res.ok) {
+  let message =
+    "Some of the information entered appears to be incomplete or incorrect. Please review the form and ensure all required details are accurate before submitting again.";
 
-      setStatus("Consent form submitted successfully.");
-      setForm(initialForm);
-    } catch (err) {
-      console.error(err);
-      setStatus("Sorry, something went wrong submitting the form.");
-    }
+  try {
+    const errorData = await res.json();
+    console.error("Submission validation error:", errorData);
+  } catch {
+    // Ignore JSON parse errors
+  }
+
+  setStatus(message);
+  return;
+}
+
+setStatus("Consent form submitted successfully.");
+setForm(initialForm);
+} catch (err) {
+  console.error(err);
+  setStatus(
+    "Sorry, we could not submit the form right now. Please try again in a few minutes."
+  );
+}
   }
 
   return (
