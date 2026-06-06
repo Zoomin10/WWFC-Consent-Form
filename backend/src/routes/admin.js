@@ -1,15 +1,77 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const { createObjectCsvStringifier } = require("csv-writer");
 const prisma = require("../prisma");
 
 const router = express.Router();
+
+function requireAdmin(req, res, next) {
+  const token = req.cookies?.admin_token;
+
+  if (!token) {
+    return res.status(401).json({ error: "Admin login required" });
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: "Invalid or expired admin session" });
+  }
+}
+
+router.post("/login", (req, res) => {
+  try {
+    const { password } = req.body;
+
+    if (!process.env.ADMIN_PASSWORD || !process.env.JWT_SECRET) {
+      return res.status(500).json({ error: "Admin auth is not configured" });
+    }
+
+    if (password !== process.env.ADMIN_PASSWORD) {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+
+    const token = jwt.sign(
+      { role: "admin" },
+      process.env.JWT_SECRET,
+      { expiresIn: "8h" }
+    );
+
+    res.cookie("admin_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 8 * 60 * 60 * 1000,
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Admin login error:", err);
+    res.status(500).json({ error: "Admin login failed" });
+  }
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("admin_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
+
+  res.json({ success: true });
+});
+
+router.get("/me", requireAdmin, (req, res) => {
+  res.json({ authenticated: true });
+});
 
 function isDevelopmentAge(ageGroup) {
   const age = Number(String(ageGroup).replace("u", ""));
   return age <= 11;
 }
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", requireAdmin, async (req, res) => {
   try {
     const forms = await prisma.consentForm.findMany();
 
@@ -30,7 +92,7 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
-router.get("/registrations", async (req, res) => {
+router.get("/registrations", requireAdmin, async (req, res) => {
   try {
     const { ageGroup, playerSex } = req.query;
 
@@ -49,7 +111,7 @@ router.get("/registrations", async (req, res) => {
   }
 });
 
-router.delete("/registrations/:id", async (req, res) => {
+router.delete("/registrations/:id", requireAdmin, async (req, res) => {
   try {
     await prisma.consentForm.delete({
       where: { id: req.params.id },
@@ -62,7 +124,7 @@ router.delete("/registrations/:id", async (req, res) => {
   }
 });
 
-router.get("/registrations.csv", async (req, res) => {
+router.get("/registrations.csv", requireAdmin, async (req, res) => {
   try {
     const forms = await prisma.consentForm.findMany({
       orderBy: { createdAt: "desc" },
