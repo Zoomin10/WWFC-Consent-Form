@@ -122,7 +122,7 @@ The system replaces paper-based registration forms with a secure digital workflo
         NODE_ENV=production
         Production
 
-R- equired Backend Variables:
+- Required Backend Variables:
 
         DATABASE_URL=
         ADMIN_PASSWORD=
@@ -240,7 +240,7 @@ Admin dashboard is available at:
         ./scripts/release-prod.sh
 
 🔒 Future Improvements
-    Admin authentication (JWT)
+    
     Role-based access
     Excel export (formatted)
     Email notifications
