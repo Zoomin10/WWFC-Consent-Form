@@ -1,6 +1,8 @@
 # WWFC Digital Consent App
 
-A full-stack web application for managing youth football player registrations and digital consent forms for Wroughton & Wichelstowe Football Club.
+A full-stack web application for managing player registrations and digital consent forms for Wroughton & Wichelstowe Football Club (WWFC).
+
+The system replaces paper-based registration forms with a secure digital workflow while providing administrators with visibility of player registrations, consent records, and registration statistics.
 
 ---
 
@@ -14,7 +16,11 @@ A full-stack web application for managing youth football player registrations an
 - Consent flags (data, photos, videos)
 - Signature capture (typed)
 
+
 ### Admin Dashboard
+
+# Authenticated administrators can:
+
 - Overview statistics:
   - Total registrations
   - Male / Female split (%)
@@ -29,6 +35,32 @@ A full-stack web application for managing youth football player registrations an
 - Export to CSV
 
 ---
+### Security
+
+- Admin Authentication
+
+- The admin area is protected by:
+
+        Password-based login
+        JWT authentication
+        HTTP-only cookies
+        Protected API routes
+
+- Unauthenticated users cannot access:
+
+        Dashboard data
+        Registration records
+        CSV exports
+        Delete functionality
+        Session Management
+
+- Authentication uses:
+
+        JWT tokens
+        HTTP-only cookies
+        Automatic session validation
+        Logout functionality
+        Inactivity timeout
 
 ## 🏗️ Tech Stack
 
@@ -69,26 +101,130 @@ A full-stack web application for managing youth football player registrations an
 
 ### Backend (`backend/.env`)
 
-```env
-DATABASE_URL=your_postgres_connection
-NODE_ENV=development
+- Environment Configuration
 
-    VITE_API_URL=http://localhost:4000
+# Development
 
-🌐 Deployment (Railway)
-Environments
-Environment	Branch	Purpose
-Development	development	Testing
-Production	production	Live system
-Backend
-Build: npm install && npx prisma generate
-Start: npx prisma migrate deploy && npm start
-Frontend
-Build: standard Vite build
+- Frontend URL:
 
-Ensure:
+        https://wwfc-consent-form-development.up.railway.app
 
-    VITE_API_URL = backend service URL
+- Backend URL:
+
+        https://wwfc-consent-development-backend.up.railway.app
+
+- Required Backend Variables:
+
+        DATABASE_URL=
+        ADMIN_PASSWORD=
+        JWT_SECRET=
+        FRONTEND_URL=
+        NODE_ENV=production
+        Production
+
+R- equired Backend Variables:
+
+        DATABASE_URL=
+        ADMIN_PASSWORD=
+        JWT_SECRET=
+        FRONTEND_URL=
+        NODE_ENV=production
+
+- Notes:
+
+        Production should use a different JWT secret from Development.
+        Production should use a separate database.
+        Production should have its own frontend URL.
+
+- Ensure:
+
+        VITE_API_URL = backend service URL
+
+### API Endpoints
+# Public
+- Health Check
+        GET /api/health
+
+- Submit Consent Form
+        POST /api/consent
+
+# Admin Authentication
+- Login
+        POST /api/admin/login
+
+- Body:
+
+        {
+        "password": "admin-password"
+        }
+        
+- Logout
+        POST /api/admin/logout
+
+- Session Check
+        GET /api/admin/me
+
+### Protected Admin Routes
+- Dashboard Statistics
+
+    GET /api/admin/dashboard
+- Registrations
+    GET /api/admin/registrations
+
+- Delete Registration
+    DELETE /api/admin/registrations/:id
+
+- Export CSV
+    GET /api/admin/registrations.csv
+
+### Railway Deployment
+
+- The application uses two environments:
+
+    Development
+
+        Used for:
+
+            Feature development
+            Testing
+            Validation
+
+Deployment branch: development
+
+    Production
+
+            Used for:
+
+            Live club operation
+            Deployment branch: production
+
+### Deployment Workflow
+- Develop on:
+        development
+
+- Push changes
+        Deploy to Railway Development
+        Validate functionality
+
+- Merge:
+        development → production
+        Deploy to Railway Production
+        Validate production
+
+### Database
+
+- Current database model: ConsentForm
+
+Stores:
+
+        Player information
+        Contact information
+        Medical information
+        Consent selections
+        Signature information
+
+- Prisma manages all database access.
+
 
 📊 Admin Access
 
@@ -115,3 +251,5 @@ Admin dashboard is available at:
 📄 License
 
     Private internal project
+    Not licensed for public redistribution.
+    Developed for Wroughton & Wichelstowe Football Club.
