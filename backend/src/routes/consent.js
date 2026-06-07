@@ -38,7 +38,11 @@ postcode: z
   ),
   houseNumber: z.string().trim().min(1).max(20),
   email: z.string().trim().email().max(150),
-  relationship: z.string().trim().min(1).max(50),
+  relationship: z.enum([
+  "Mother",
+  "Father",
+  "Carer",
+]),
 });
 
 const consentFormSchema = z.object({

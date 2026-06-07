@@ -259,24 +259,37 @@ function ContactSection({ title, data, onChange }) {
       <h2>{title}</h2>
       <div className="grid">
         {[
-          ["name", "Name"],
-          ["dob", "Date of Birth"],
-          ["phoneNumber", "Phone Number"],
-          ["postcode", "Post Code"],
-          ["houseNumber", "House Number"],
-          ["email", "Email Address"],
-          ["relationship", "Relationship to Player"],
-        ].map(([field, label]) => (
-          <label key={field}>
-            {label}
-            <input
-              required
-              type={field === "dob" ? "date" : field === "email" ? "email" : "text"}
-              value={data[field]}
-              onChange={(e) => onChange(field, e.target.value)}
-            />
-          </label>
-        ))}
+  ["name", "Name"],
+  ["dob", "Date of Birth"],
+  ["phoneNumber", "Phone Number"],
+  ["postcode", "Post Code"],
+  ["houseNumber", "House Number"],
+  ["email", "Email Address"],
+].map(([field, label]) => (
+  <label key={field}>
+    {label}
+    <input
+      required
+      type={field === "dob" ? "date" : field === "email" ? "email" : "text"}
+      value={data[field]}
+      onChange={(e) => onChange(field, e.target.value)}
+    />
+  </label>
+))}
+
+<label>
+  Relationship to Player
+  <select
+    required
+    value={data.relationship}
+    onChange={(e) => onChange("relationship", e.target.value)}
+  >
+    <option value="">Select...</option>
+    <option value="Mother">Mother</option>
+    <option value="Father">Father</option>
+    <option value="Carer">Carer</option>
+  </select>
+</label>
       </div>
     </>
   );
