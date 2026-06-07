@@ -5,11 +5,11 @@ import Admin from "./Admin";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const initialForm = {
-  ageGroup: "Please Select",
+  ageGroup: "",
   playerFirstName: "",
   playerSurname: "",
   playerDob: "",
-  playerSex: "Please Select",
+  playerSex: "",
 
   emergencyContact1: {
     name: "",
@@ -138,19 +138,32 @@ setForm(initialForm);
           <div className="grid">
             <label>
               Age Group
-              <select value={form.ageGroup} onChange={(e) => updateField("ageGroup", e.target.value)}>
-                {["u7","u8","u9","u10","u11","u12","u13","u14","u15","u16","u17","u18"].map((age) => (
-                  <option key={age} value={age}>{age.toUpperCase()}</option>
-                ))}
-              </select>
+            <select
+  required
+  value={form.ageGroup}
+  onChange={(e) => updateField("ageGroup", e.target.value)}
+>
+  <option value="">Please Select</option>
+
+  {["u7","u8","u9","u10","u11","u12","u13","u14","u15","u16","u17","u18"].map((age) => (
+    <option key={age} value={age}>
+      {age.toUpperCase()}
+    </option>
+  ))}
+</select>
             </label>
 
             <label>
               Gender
-              <select value={form.playerSex} onChange={(e) => updateField("playerSex", e.target.value)}>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
+          <select
+  required
+  value={form.playerSex}
+  onChange={(e) => updateField("playerSex", e.target.value)}
+>
+  <option value="">Please Select</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+</select>
             </label>
 
             <label>
