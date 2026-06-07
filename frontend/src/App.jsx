@@ -5,11 +5,11 @@ import Admin from "./Admin";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const initialForm = {
-  ageGroup: "u7",
+  ageGroup: "Please Select",
   playerFirstName: "",
   playerSurname: "",
   playerDob: "",
-  playerSex: "Male",
+  playerSex: "Please Select",
 
   emergencyContact1: {
     name: "",
