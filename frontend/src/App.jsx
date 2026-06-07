@@ -217,7 +217,13 @@ setForm(initialForm);
 
             <label>
               Date of Signature
-              <input required type="date" value={form.signatureDate} onChange={(e) => updateField("signatureDate", e.target.value)} />
+              <input
+  required
+  type="date"
+  max={new Date().toISOString().split("T")[0]}
+  value={form.signatureDate}
+  onChange={(e) => updateField("signatureDate", e.target.value)}
+/>
             </label>
           </div>
 

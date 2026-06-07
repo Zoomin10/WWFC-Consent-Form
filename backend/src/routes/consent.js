@@ -20,7 +20,12 @@ const ageGroups = [
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
-  dob: z.string().optional().nullable(),
+ dob: z.coerce.date().refine(
+  (date) => date <= new Date(),
+  {
+    message: "Date of birth cannot be in the future",
+  }
+),
  phoneNumber: z
   .string()
   .trim()
@@ -50,7 +55,12 @@ const consentFormSchema = z.object({
 
   playerFirstName: z.string().trim().min(1).max(60),
   playerSurname: z.string().trim().min(1).max(60),
-  playerDob: z.coerce.date(),
+playerDob: z.coerce.date().refine(
+  (date) => date <= new Date(),
+  {
+    message: "Player date of birth cannot be in the future",
+  }
+),
   playerSex: z.enum(["Male", "Female"]),
 
   emergencyContact1: contactSchema,
@@ -74,7 +84,16 @@ email: z.union([
 
   parentSignature: z.string().trim().min(1).max(100),
   parentName: z.string().trim().min(1).max(100),
-  signatureDate: z.coerce.date(),
+  signatureDate: z.coerce.date().refine(
+  (date) => {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    return date <= today;
+  },
+  {
+    message: "Signature date cannot be in the future",
+  }
+),
 });
 
 // Create new consent form
