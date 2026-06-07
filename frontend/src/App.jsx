@@ -53,7 +53,8 @@ function App() {
   return <Admin />;
 }
   const [form, setForm] = useState(initialForm);
-  const [status, setStatus] = useState("");
+const [status, setStatus] = useState("");
+const [validationError, setValidationError] = useState("");
 
   function updateField(name, value) {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -88,21 +89,29 @@ function App() {
       });
 
 if (!res.ok) {
-  let message =
-    "Some of the information entered appears to be incomplete or incorrect. Please review the form and ensure all required details are accurate before submitting again.";
-
   try {
     const errorData = await res.json();
-    console.error("Submission validation error:", errorData);
-  } catch {
-    // Ignore JSON parse errors
+
+    const fieldErrors = errorData?.details?.fieldErrors;
+
+    if (fieldErrors) {
+      const firstError = Object.values(fieldErrors)
+        .flat()
+        .find(Boolean);
+
+      setValidationError(firstError || "");
+    }
+  } catch (err) {
+    console.error(err);
   }
 
-  
-  setStatus(message);
+  setStatus(
+    "Some of the information entered appears to be incomplete or incorrect. Please review the form and ensure all required details are accurate."
+  );
+
   return;
 }
-
+setValidationError("");
 setStatus("Consent form submitted successfully.");
 setForm(initialForm);
 } catch (err) {
@@ -232,6 +241,12 @@ setForm(initialForm);
 </button>
 
           {status && <p className="status">{status}</p>}
+
+{validationError && (
+  <p className="validation-error">
+    {validationError}
+  </p>
+)}
         </form>
       </section>
     </main>
