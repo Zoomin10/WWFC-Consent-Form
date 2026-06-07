@@ -21,7 +21,13 @@ const ageGroups = [
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
   dob: z.string().optional().nullable(),
-  phoneNumber: z.string().trim().min(7).max(20),
+ phoneNumber: z
+  .string()
+  .trim()
+  .regex(
+    /^(\+44|0)[\d\s()-]{9,18}$/,
+    "Please enter a valid UK telephone number"
+  ),
   postcode: z.string().trim().min(3).max(12),
   houseNumber: z.string().trim().min(1).max(20),
   email: z.string().trim().email().max(150),

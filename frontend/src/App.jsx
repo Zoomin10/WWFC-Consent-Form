@@ -98,6 +98,7 @@ if (!res.ok) {
     // Ignore JSON parse errors
   }
 
+  
   setStatus(message);
   return;
 }
