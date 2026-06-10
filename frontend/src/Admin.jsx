@@ -208,9 +208,31 @@ if (!isAuthenticated) {
   }
 >
   <option value="">Filter by Team</option>
-  <option value="U7 Lions">U7 Lions</option>
-  <option value="U8 Tigers">U8 Tigers</option>
-  <option value="U9 Panthers">U9 Panthers</option>
+  <option>Black Cats</option>
+    <option>Wild Cats</option>
+    <option>Panthers</option>
+    <option>Rams</option>
+    <option>Rhinos</option>
+      <option>Rangers</option>
+    <option>Rockets</option>
+    <option>Dragons</option>
+    <option>Thunder</option>
+      <option>Lightning</option>
+    <option>Wookies</option>
+    <option>Warriors</option>
+    <option>Magic</option>
+      <option>Witches</option>
+    <option>Lions</option>
+    <option>Wasps</option>
+    <option>Wolves</option>
+      <option>Hurricanes</option>
+    <option>Tornadoes</option>
+    <option>Silverbacks</option>
+    <option>Broncos</option>
+      <option>U18</option>
+    <option>Wrens</option>
+    <option>Ravens</option>
+        <option>Other (not listed)</option>
 </select>
         <select
           value={filters.playerSex}
