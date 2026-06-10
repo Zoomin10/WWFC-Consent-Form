@@ -184,7 +184,7 @@ setForm(initialForm);
   >
     <option value="">Select Team</option>
 
-    <option>U7 Lions</option>
+    <option>Black Cats</option>
     <option>U8 Tigers</option>
     <option>U9 Panthers</option>
 
