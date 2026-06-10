@@ -201,7 +201,7 @@ setForm(initialForm);
     <option>Lions</option>
     <option>Wasps</option>
     <option>Wolves</option>
-      <option>Hurricans</option>
+      <option>Hurricanes</option>
     <option>Tornadoes</option>
     <option>Silverbacks</option>
     <option>Broncos</option>
