@@ -77,6 +77,7 @@ const [validationError, setValidationError] = useState("");
 
     const payload = {
       ...form,
+      wwfcTeam: form.wwfcTeam,
       consentData: form.consentData === "Yes",
       consentPhotos: form.consentPhotos === "Yes",
       consentVideos: form.consentVideos === "Yes",

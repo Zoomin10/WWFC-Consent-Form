@@ -52,7 +52,7 @@ postcode: z
 
 const consentFormSchema = z.object({
   ageGroup: z.enum(ageGroups),
-
+wwfcTeam: z.string().trim().min(1).max(100),
   playerFirstName: z.string().trim().min(1).max(60),
   playerSurname: z.string().trim().min(1).max(60),
 playerDob: z.coerce.date().refine(
@@ -113,6 +113,7 @@ router.post("/", async (req, res) => {
     const result = await prisma.consentForm.create({
       data: {
         ageGroup: data.ageGroup,
+        wwfcTeam: data.wwfcTeam,
         playerFirstName: data.playerFirstName,
         playerSurname: data.playerSurname,
         playerDob: data.playerDob,
