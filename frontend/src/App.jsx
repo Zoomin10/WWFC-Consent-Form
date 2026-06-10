@@ -185,8 +185,30 @@ setForm(initialForm);
     <option value="">Select Team</option>
 
     <option>Black Cats</option>
-    <option>U8 Tigers</option>
-    <option>U9 Panthers</option>
+    <option>Wild Cats</option>
+    <option>Panthers</option>
+    <option>Rams</option>
+    <option>Rhinos</option>
+      <option>Rangers</option>
+    <option>Rockets</option>
+    <option>Dragons</option>
+    <option>Thunder</option>
+      <option>Lightning</option>
+    <option>Wookies</option>
+    <option>Warriors</option>
+    <option>Magic</option>
+      <option>Witches</option>
+    <option>Lions</option>
+    <option>Wasps</option>
+    <option>Wolves</option>
+      <option>Hurricans</option>
+    <option>Tornadoes</option>
+    <option>Silverbacks</option>
+    <option>Broncos</option>
+      <option>U18</option>
+    <option>Wrens</option>
+    <option>Ravens</option>
+        <option>Other (not listed)</option>
 
     {/* etc */}
   </select>
