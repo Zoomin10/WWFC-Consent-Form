@@ -41,6 +41,7 @@ const initialForm = {
   consentData: "",
   consentPhotos: "",
   consentVideos: "",
+  consentWalkHome: "",
 
   parentSignature: "",
   parentName: "",
@@ -56,10 +57,26 @@ function App() {
   const [form, setForm] = useState(initialForm);
 const [status, setStatus] = useState("");
 const [validationError, setValidationError] = useState("");
+const walkHomeEligible =
+  Number(String(form.ageGroup).replace("u", "")) >= 11;
+ function updateField(name, value) {
+  setForm((prev) => {
+    const next = {
+      ...prev,
+      [name]: value,
+    };
 
-  function updateField(name, value) {
-    setForm((prev) => ({ ...prev, [name]: value }));
-  }
+    if (name === "ageGroup") {
+      const age = Number(String(value).replace("u", ""));
+
+      if (age < 11) {
+        next.consentWalkHome = "";
+      }
+    }
+
+    return next;
+  });
+}
 
   function updateContact(contactKey, field, value) {
     setForm((prev) => ({
@@ -81,6 +98,9 @@ const [validationError, setValidationError] = useState("");
       consentData: form.consentData === "Yes",
       consentPhotos: form.consentPhotos === "Yes",
       consentVideos: form.consentVideos === "Yes",
+      consentWalkHome: walkHomeEligible
+  ? form.consentWalkHome === "Yes"
+  : null,
     };
 
     try {
@@ -221,6 +241,13 @@ setForm(initialForm);
           <YesNo label="I give permission for these details to be kept by Wroughton & Wichelstowe FC for contact purposes." value={form.consentData} onChange={(v) => updateField("consentData", v)} />
           <YesNo label="I give permission for photographs to be taken and used by Wroughton & Wichelstowe FC." value={form.consentPhotos} onChange={(v) => updateField("consentPhotos", v)} />
           <YesNo label="I give permission for videos to be taken and used by Wroughton & Wichelstowe FC." value={form.consentVideos} onChange={(v) => updateField("consentVideos", v)} />
+{walkHomeEligible && (
+  <YesNo
+    label="I give permission for my child to leave training, matches, or club activities unaccompanied and make their own way home."
+    value={form.consentWalkHome}
+    onChange={(v) => updateField("consentWalkHome", v)}
+  />
+)}
 
           <p className="disclaimer">
               Wroughton & Wichelstowe FC adhere to the England FA guidelines for the use of photos and videos, safeguarding and social media. 

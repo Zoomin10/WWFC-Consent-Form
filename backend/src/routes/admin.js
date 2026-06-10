@@ -135,6 +135,8 @@ router.get("/registrations.csv", requireAdmin, async (req, res) => {
       header: [
       { id: "createdAt", title: "Created At" },
         { id: "ageGroup", title: "Age Group" },
+        { id: "wwfcTeam", title: "WWFC Team" },
+        { id: "consentWalkHome", title: "Consent To Walk Home Alone" },
         { id: "playerFirstName", title: "Player First Name" },
         { id: "playerSurname", title: "Player Surname" },
         { id: "playerDob", title: "Player DOB" },
@@ -176,6 +178,13 @@ router.get("/registrations.csv", requireAdmin, async (req, res) => {
   const formattedForms = forms.map((f) => ({
       createdAt: formatDate(f.createdAt),
       ageGroup: String(f.ageGroup).toUpperCase(),
+      wwfcTeam: f.wwfcTeam || "",
+      consentWalkHome:
+  f.consentWalkHome === null || f.consentWalkHome === undefined
+    ? ""
+    : f.consentWalkHome
+      ? "Yes"
+      : "No",
       playerFirstName: f.playerFirstName,
       playerSurname: f.playerSurname,
       playerDob: formatDate(f.playerDob),
@@ -202,6 +211,12 @@ router.get("/registrations.csv", requireAdmin, async (req, res) => {
       consentData: f.consentData ? "Yes" : "No",
       consentPhotos: f.consentPhotos ? "Yes" : "No",
       consentVideos: f.consentVideos ? "Yes" : "No",
+      consentWalkHome:
+  f.consentWalkHome === null || f.consentWalkHome === undefined
+    ? ""
+    : f.consentWalkHome
+      ? "Yes"
+      : "No",
       parentName: f.parentName || "",
       parentSignature: f.parentSignature || "",
       signatureDate: formatDate(f.signatureDate),

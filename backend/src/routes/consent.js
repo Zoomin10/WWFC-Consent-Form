@@ -81,7 +81,7 @@ email: z.union([
   consentData: z.boolean(),
   consentPhotos: z.boolean(),
   consentVideos: z.boolean(),
-
+consentWalkHome: z.boolean().nullable().optional(),
   parentSignature: z.string().trim().min(1).max(100),
   parentName: z.string().trim().min(1).max(100),
   signatureDate: z.coerce.date().refine(
@@ -134,6 +134,7 @@ router.post("/", async (req, res) => {
         consentData: data.consentData,
         consentPhotos: data.consentPhotos,
         consentVideos: data.consentVideos,
+        consentWalkHome: data.consentWalkHome ?? null,
 
         parentSignature: data.parentSignature,
         parentName: data.parentName,

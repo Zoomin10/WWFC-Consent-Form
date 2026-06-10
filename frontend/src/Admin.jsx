@@ -320,6 +320,17 @@ if (!isAuthenticated) {
               <Detail label="Contact Consent" value={selectedRegistration.consentData ? "Yes" : "No"} />
               <Detail label="Photo Consent" value={selectedRegistration.consentPhotos ? "Yes" : "No"} />
               <Detail label="Video Consent" value={selectedRegistration.consentVideos ? "Yes" : "No"} />
+              <Detail
+  label="Walk Home Alone Consent"
+  value={
+    selectedRegistration.consentWalkHome === null ||
+    selectedRegistration.consentWalkHome === undefined
+      ? "Not applicable"
+      : selectedRegistration.consentWalkHome
+        ? "Yes"
+        : "No"
+  }
+/>
             </ModalSection>
 
             <ModalSection title="Signature">
