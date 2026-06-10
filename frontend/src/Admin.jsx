@@ -9,8 +9,12 @@ export default function Admin() {
   const [loginError, setLoginError] = useState("");
   const [stats, setStats] = useState(null);
   const [registrations, setRegistrations] = useState([]);
-  const [filters, setFilters] = useState({ ageGroup: "", playerSex: "" });
   const [selectedRegistration, setSelectedRegistration] = useState(null);
+  const [filters, setFilters] = useState({
+  ageGroup: "",
+  playerSex: "",
+  wwfcTeam: "",
+});
 
   async function logout() {
   await fetch(`${API_URL}/api/admin/logout`, {
@@ -67,6 +71,7 @@ const res = await fetch(`${API_URL}/api/admin/dashboard`, {
 
     if (filters.ageGroup) params.append("ageGroup", filters.ageGroup);
     if (filters.playerSex) params.append("playerSex", filters.playerSex);
+    if (filters.wwfcTeam) params.append("wwfcTeam", filters.wwfcTeam);
 
 const res = await fetch(`${API_URL}/api/admin/registrations?${params}`, {
   credentials: "include",
@@ -196,7 +201,17 @@ if (!isAuthenticated) {
             <option key={age} value={age}>{age.toUpperCase()}</option>
           ))}
         </select>
-
+<select
+  value={filters.wwfcTeam}
+  onChange={(e) =>
+    setFilters((prev) => ({ ...prev, wwfcTeam: e.target.value }))
+  }
+>
+  <option value="">Filter by Team</option>
+  <option value="U7 Lions">U7 Lions</option>
+  <option value="U8 Tigers">U8 Tigers</option>
+  <option value="U9 Panthers">U9 Panthers</option>
+</select>
         <select
           value={filters.playerSex}
           onChange={(e) => setFilters((prev) => ({ ...prev, playerSex: e.target.value }))}

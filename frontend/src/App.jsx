@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const initialForm = {
   ageGroup: "",
+  wwfcTeam: "",
   playerFirstName: "",
   playerSurname: "",
   playerDob: "",
@@ -152,6 +153,23 @@ setForm(initialForm);
   ))}
 </select>
             </label>
+
+<label>
+  WWFC Team
+  <select
+    required
+    value={form.wwfcTeam}
+    onChange={(e) => updateField("wwfcTeam", e.target.value)}
+  >
+    <option value="">Select Team</option>
+
+    <option>U7 Lions</option>
+    <option>U8 Tigers</option>
+    <option>U9 Panthers</option>
+
+    {/* etc */}
+  </select>
+</label>
 
             <label>
               Gender

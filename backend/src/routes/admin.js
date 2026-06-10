@@ -94,11 +94,12 @@ router.get("/dashboard", requireAdmin, async (req, res) => {
 
 router.get("/registrations", requireAdmin, async (req, res) => {
   try {
-    const { ageGroup, playerSex } = req.query;
+    const { ageGroup, wwfcTeam, playerSex } = req.query;
 
     const registrations = await prisma.consentForm.findMany({
       where: {
         ageGroup: ageGroup || undefined,
+        wwfcTeam: wwfcTeam || undefined,
         playerSex: playerSex || undefined,
       },
       orderBy: { createdAt: "desc" },
