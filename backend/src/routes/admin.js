@@ -136,7 +136,7 @@ router.get("/registrations.csv", requireAdmin, async (req, res) => {
       { id: "createdAt", title: "Created At" },
         { id: "ageGroup", title: "Age Group" },
         { id: "wwfcTeam", title: "WWFC Team" },
-        { id: "consentWalkHome", title: "Consent To Walk Home Alone" },
+        
         { id: "playerFirstName", title: "Player First Name" },
         { id: "playerSurname", title: "Player Surname" },
         { id: "playerDob", title: "Player DOB" },
@@ -161,6 +161,7 @@ router.get("/registrations.csv", requireAdmin, async (req, res) => {
       
         { id: "medicalInfo", title: "Medical Info" },
         { id: "allergies", title: "Allergies" },
+        { id: "consentWalkHome", title: "Consent To Walk Home Alone" },
         { id: "consentData", title: "Contact Consent" },
         { id: "consentPhotos", title: "Photo Consent" },
         { id: "consentVideos", title: "Video Consent" },
