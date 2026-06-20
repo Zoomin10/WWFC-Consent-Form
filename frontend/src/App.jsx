@@ -193,6 +193,7 @@ setForm(initialForm);
     <option>Rockets</option>
     <option>Dragons</option>
     <option>Thunder</option>
+       <option>Foxes</option>
       <option>Lightning</option>
     <option>Wookies</option>
     <option>Warriors</option>
@@ -204,10 +205,10 @@ setForm(initialForm);
       <option>Hurricanes</option>
     <option>Tornadoes</option>
     <option>Silverbacks</option>
-    <option>Broncos</option>
-      <option>U18</option>
+    <option>Broncos</option>   
     <option>Wrens</option>
     <option>Ravens</option>
+       <option>U18</option>
         <option>Other (not listed)</option>
 
     {/* etc */}
