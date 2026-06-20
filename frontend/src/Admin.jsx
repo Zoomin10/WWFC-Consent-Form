@@ -309,12 +309,13 @@ if (!isAuthenticated) {
               </button>
             </div>
 
-            <ModalSection title="Player Details">
-              <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
-              <Detail label="Gender" value={selectedRegistration.playerSex} />
-              <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
-              <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
-            </ModalSection>
+      <ModalSection title="Player Details">
+  <Detail label="WWFC Team" value={selectedRegistration.wwfcTeam} />
+  <Detail label="Age Group" value={String(selectedRegistration.ageGroup).toUpperCase()} />
+  <Detail label="Gender" value={selectedRegistration.playerSex} />
+  <Detail label="DOB" value={new Date(selectedRegistration.playerDob).toLocaleDateString("en-GB")} />
+  <Detail label="Submitted" value={new Date(selectedRegistration.createdAt).toLocaleDateString("en-GB")} />
+</ModalSection>
 
             <ModalSection title="Parent / Emergency Contact 1">
               <Detail label="Name" value={selectedRegistration.emergencyContact1?.name} />
