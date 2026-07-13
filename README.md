@@ -1,255 +1,301 @@
-# WWFC Digital Consent App
+# WWFC Player Registration & Consent System
 
-A full-stack web application for managing player registrations and digital consent forms for Wroughton & Wichelstowe Football Club (WWFC).
+Version: **1.1.0**
 
-The system replaces paper-based registration forms with a secure digital workflow while providing administrators with visibility of player registrations, consent records, and registration statistics.
+A secure web application for collecting and managing player registrations and annual consent forms for **Wroughton & Wichelstowe Football Club (WWFC)**.
+
+The application allows parents to complete player registrations online while providing club administrators with a secure dashboard to manage submissions, download reports and receive automated email notifications.
 
 ---
 
-## 🚀 Features
+# Features
 
-### Player Registration (Frontend)
-- Digital consent form
-- Player details capture
-- Emergency contact information (2 contacts)
-- Medical information & allergies
-- Consent flags (data, photos, videos)
-- Signature capture (typed)
+## Parent Registration
 
+- Responsive mobile-friendly registration form
+- Player details
+- WWFC Team selection
+- Emergency contacts
+- Medical information
+- Consent declarations
+- Electronic signature
+- GDPR Privacy Policy
+- Mandatory Privacy Policy acceptance
 
-### Admin Dashboard
+---
 
-# Authenticated administrators can:
+## Administrator Dashboard
 
-- Overview statistics:
-  - Total registrations
-  - Male / Female split (%)
-  - Development vs Competitive players
-  - Adult players
-- Filter by:
-  - Age group
-  - Gender
-- List of all registrations
-- Click-to-view full registration (modal)
+Secure password protected dashboard providing:
+
+- Registration statistics
+- Filter by Age Group
+- Filter by Gender
+- CSV Export
+- Registration summary popup
+- Team information
 - Delete registrations
-- Export to CSV
 
 ---
-### Security
 
-- Admin Authentication
+## Dashboard Statistics
 
-- The admin area is protected by:
+Displays:
 
-        Password-based login
-        JWT authentication
-        HTTP-only cookies
-        Protected API routes
+- Total registrations
+- Male players
+- Female players
+- Development players (U11 & below)
+- Competitive players (U12 & above)
+- Adult players
 
-- Unauthenticated users cannot access:
+---
 
-        Dashboard data
-        Registration records
-        CSV exports
-        Delete functionality
-        Session Management
+## Email Notifications
 
-- Authentication uses:
+Automatically sends a branded email whenever a registration is submitted.
 
-        JWT tokens
-        HTTP-only cookies
-        Automatic session validation
-        Logout functionality
-        Inactivity timeout
+Features:
 
-## 🏗️ Tech Stack
+- WWFC branding
+- Embedded club logo
+- Mobile responsive layout
+- Summary of registration
+- Direct link to Admin Dashboard
+- Multiple recipients
+- GDPR-friendly content
 
-### Frontend
-- React (Vite)
-- CSS (custom styling)
-- Fetch API
+Current recipients:
 
-### Backend
+- Chair
+- Vice-Chair
+- Youth Club Secretary
+- Adult Club Secretary
+
+- Email notification is enabled using "Resend Email: https://resend.com/emails 
+---
+
+## Security
+
+- Password protected Admin area
+- JWT Authentication
+- HttpOnly cookies
+- CORS protection
+- GDPR compliant
+- Sensitive medical information excluded from notification emails
+
+---
+
+# Technology Stack
+
+Frontend
+
+- React
+- Vite
+- CSS
+
+Backend
+
 - Node.js
 - Express
 - Prisma ORM
 
-### Database
+Database
+
 - PostgreSQL (Railway)
 
-### Hosting
-- Railway (frontend + backend + database)
+Email
+
+- Resend
+- Microsoft 365
+- Verified domain (wwfc.org.uk)
+
+Hosting
+
+- Railway
+- GitHub
 
 ---
 
-## 📁 Project Structure
-    Consent/
-    ├── frontend/ # React app
-    │ ├── src/
-    │ ├── public/
-    │
-    ├── backend/ # Node/Express API
-    │ ├── src/
-    │ ├── prisma/
-    │
-    ├── scripts/ # helper scripts
-    └── README.md
+# Architecture
+
+```
+                 Parent
+
+                   │
+
+                   ▼
+
+         React Registration Form
+
+                   │
+
+                   ▼
+
+      Express REST API (Node.js)
+
+                   │
+
+      ┌────────────┴─────────────┐
+      │                          │
+      ▼                          ▼
+
+ PostgreSQL                Notification Service
+   Prisma                        │
+                                  ▼
+                              Resend API
+                                  │
+                                  ▼
+                         Microsoft 365 Mailboxes
+
+                   │
+
+                   ▼
+
+          Admin Dashboard (React)
+
+                   │
+
+                   ▼
+
+             PostgreSQL Database
+```
 
 ---
 
-## ⚙️ Environment Variables
+# Project Structure
 
-### Backend (`backend/.env`)
+```
+backend/
+    src/
+        assets/
+        routes/
+        services/
+        prisma.js
+        app.js
+        server.js
 
-- Environment Configuration
+frontend/
+    src/
+        pages/
+        components/
+        assets/
+```
 
-# Development
+---
 
-- Frontend URL:
+# Environment Variables
 
-        https://wwfc-consent-form-development.up.railway.app
+## Backend
 
-- Backend URL:
+```
+DATABASE_URL=
 
-        https://wwfc-consent-development-backend.up.railway.app
+ADMIN_PASSWORD=
 
-- Required Backend Variables:
+JWT_SECRET=
 
-        DATABASE_URL=
-        ADMIN_PASSWORD=
-        JWT_SECRET=
-        FRONTEND_URL=
-        NODE_ENV=production
-        Production
+FRONTEND_URL=
 
-- Required Backend Variables:
+RESEND_API_KEY=
 
-        DATABASE_URL=
-        ADMIN_PASSWORD=
-        JWT_SECRET=
-        FRONTEND_URL=
-        NODE_ENV=production
+EMAIL_FROM=
 
-- Notes:
+EMAIL_TO=
 
-        Production should use a different JWT secret from Development.
-        Production should use a separate database.
-        Production should have its own frontend URL.
+ADMIN_URL=
+```
 
-- Ensure:
+---
 
-        VITE_API_URL = backend service URL
+# Installation
 
-### API Endpoints
-# Public
-- Health Check
-        GET /api/health
+```
+npm install
+```
 
-- Submit Consent Form
-        POST /api/consent
+Backend
 
-# Admin Authentication
-- Login
-        POST /api/admin/login
+```
+cd backend
+npm install
+npm run dev
+```
 
-- Body:
+Frontend
 
-        {
-        "password": "admin-password"
-        }
-        
-- Logout
-        POST /api/admin/logout
+```
+cd frontend
+npm install
+npm run dev
+```
 
-- Session Check
-        GET /api/admin/me
+---
 
-### Protected Admin Routes
-- Dashboard Statistics
+# Deployment
 
-    GET /api/admin/dashboard
-- Registrations
-    GET /api/admin/registrations
+Development and Production are deployed using Railway.
 
-- Delete Registration
-    DELETE /api/admin/registrations/:id
+Frontend and Backend are deployed as separate Railway services.
 
-- Export CSV
-    GET /api/admin/registrations.csv
+---
 
-### Railway Deployment
+# Email Notifications
 
-- The application uses two environments:
+Registration notifications are generated after a successful database save.
 
-    Development
+If the email service is unavailable:
 
-        Used for:
+- Registration is still saved
+- Parent receives success response
+- Error is logged
+- No registration data is lost
 
-            Feature development
-            Testing
-            Validation
+---
 
-Deployment branch: development
+# Privacy
 
-    Production
+The system has been designed to minimise personal data contained within emails.
 
-            Used for:
+Notification emails intentionally exclude:
 
-            Live club operation
-            Deployment branch: production
+- Medical Information
+- Allergies
+- Addresses
+- Consent responses
+- Emergency Contact 2
 
-### Deployment Workflow
-- Develop on:
-        development
+The secure Admin Dashboard remains the authoritative source of player information.
 
-- Push changes
-        Deploy to Railway Development
-        Validate functionality
+---
 
-- Merge:
-        development → production
-        Deploy to Railway Production
-        Validate production
+# Roadmap
 
-### Database
+Version 1.2
 
-- Current database model: ConsentForm
+- Team filtering
+- Search
+- Pagination
+- CSV filtering
 
-Stores:
+Version 1.3
 
-        Player information
-        Contact information
-        Medical information
-        Consent selections
-        Signature information
+- Edit registrations
+- Archive registrations
+- Audit history
 
-- Prisma manages all database access.
+Version 2.0
 
+WWFC Club Portal
 
-📊 Admin Access
+- Players
+- Coaches
+- Volunteers
+- Events
+- Tournaments
+- Holiday Camps
+- Communications
 
-Admin dashboard is available at:
+---
 
-/admin
-
-📦 Scripts
-    Switch environments
-        ./scripts/switch-env.sh dev
-        ./scripts/switch-env.sh prod
-    Release to production
-        ./scripts/release-prod.sh
-
-🔒 Future Improvements
-    
-    Role-based access
-    Excel export (formatted)
-    Email notifications
-    Player search
-    Audit logging
-    Mobile UI enhancements
-
-📄 License
-
-    Private internal project
-    Not licensed for public redistribution.
-    Developed for Wroughton & Wichelstowe Football Club.
+© Wroughton & Wichelstowe Football Club
