@@ -1,3 +1,5 @@
+const { logoDataUri } = require("./logo");
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -125,19 +127,20 @@ function buildRegistrationEmail(registration, options = {}) {
 
   const logoMarkup = logoUrl
     ? `
-      <img
-        src="${escapeHtml(logoUrl)}"
-        width="300"
-        alt="Wroughton & Wichelstowe Football Club"
-        style="
-          display: block;
-          width: 100%;
-          max-width: 300px;
-          height: auto;
-          margin: 0 auto;
-          border: 0;
-        "
-      />
+     
+  <img
+  src="${logoDataUri}"
+  alt="Wroughton & Wichelstowe Football Club"
+  width="300"
+  style="
+    display:block;
+    width:100%;
+    max-width:300px;
+    height:auto;
+    margin:0 auto;
+    border:0;
+  "
+/>
     `
     : `
       <div

@@ -50,10 +50,9 @@ async function sendRegistrationNotification(registration) {
     from: process.env.EMAIL_FROM,
     to: recipients,
     subject: `WWFC Registration | ${playerName} | ${team}`,
-    html: buildRegistrationEmail(registration, {
-      adminUrl: process.env.ADMIN_URL,
-      logoUrl: process.env.EMAIL_LOGO_URL,
-    }),
+  html: buildRegistrationEmail(registration, {
+    adminUrl: process.env.ADMIN_URL,
+}),
   };
 
   if (process.env.REPLY_TO_EMAIL) {
