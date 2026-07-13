@@ -18,6 +18,10 @@ const ageGroups = [
   "u18",
 ];
 
+const {
+  sendRegistrationNotification,
+} = require("../services/notificationService");
+
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
  dob: z.coerce.date().refine(
@@ -142,10 +146,20 @@ router.post("/", async (req, res) => {
       },
     });
 
-    res.json(result);
+      sendRegistrationNotification(result).catch((error) => {
+      console.error(
+        "Registration saved, but notification email failed:",
+        error
+      );
+    });
+
+    res.status(201).json(result);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save consent form" });
+    console.error("Failed to save consent form:", err);
+
+    res.status(500).json({
+      error: "Failed to save consent form",
+    });
   }
 });
 
