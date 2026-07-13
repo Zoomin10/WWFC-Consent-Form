@@ -45,7 +45,7 @@ postcode: z
     /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/,
     "Please enter a valid UK postcode"
   ),
-  houseNumber: z.string().trim().min(1).max(20),
+  houseNumber: z.string().trim().min(1).max(50),
   email: z.string().trim().email().max(150),
   relationship: z.enum([
   "Mother",
@@ -71,7 +71,7 @@ playerDob: z.coerce.date().refine(
   emergencyContact2: contactSchema,
 
 postcode: z.string().trim().max(12).optional().default(""),
-houseNumber: z.string().trim().max(20).optional().default(""),
+houseNumber: z.string().trim().max(50).optional().default(""),
 email: z.union([
   z.string().trim().email().max(150),
   z.literal("")
