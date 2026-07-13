@@ -20,7 +20,7 @@ const ageGroups = [
 
 const {
   sendRegistrationNotification,
-} = require("../services/notificationService");
+} = require("./services/notificationService");
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
