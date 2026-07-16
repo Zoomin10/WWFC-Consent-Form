@@ -83,28 +83,75 @@ async function checkAuth() {
   }
 }
 
-  async function loadDashboard() {
-const res = await fetch(`${API_URL}/api/admin/dashboard`, {
-  credentials: "include",
-});
+async function loadDashboard() {
+  try {
+    const res = await fetch(`${API_URL}/api/admin/dashboard`, {
+      credentials: "include",
+    });
+
+    if (res.status === 401) {
+      setIsAuthenticated(false);
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error(`Dashboard request failed: ${res.status}`);
+    }
+
     const data = await res.json();
     setStats(data);
+  } catch (error) {
+    console.error("Failed to load dashboard:", error);
+  }
+}
+
+async function loadRegistrations() {
+  const params = new URLSearchParams();
+
+  if (filters.ageGroup) {
+    params.append("ageGroup", filters.ageGroup);
   }
 
-  async function loadRegistrations() {
-    const params = new URLSearchParams();
+  if (filters.playerSex) {
+    params.append("playerSex", filters.playerSex);
+  }
 
-    if (filters.ageGroup) params.append("ageGroup", filters.ageGroup);
-    if (filters.playerSex) params.append("playerSex", filters.playerSex);
-    if (filters.wwfcTeam) params.append("wwfcTeam", filters.wwfcTeam);
+  if (filters.wwfcTeam) {
+    params.append("wwfcTeam", filters.wwfcTeam);
+  }
 
-const res = await fetch(`${API_URL}/api/admin/registrations?${params}`, {
-  credentials: "include",
-});
+  try {
+    const res = await fetch(
+      `${API_URL}/api/admin/registrations?${params.toString()}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (res.status === 401) {
+      setIsAuthenticated(false);
+      setStats(null);
+      setRegistrations([]);
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error(`Registrations request failed: ${res.status}`);
+    }
+
     const data = await res.json();
-    setRegistrations(data);
-  }
 
+    if (!Array.isArray(data)) {
+      throw new Error("Registrations response was not an array");
+    }
+
+    setRegistrations(data);
+  } catch (error) {
+    console.error("Failed to load registrations:", error);
+    setRegistrations([]);
+  }
+}
   async function deleteRegistration(id) {
     const ok = window.confirm("Delete this registration?");
     if (!ok) return;
