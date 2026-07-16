@@ -4,6 +4,7 @@ import "./Admin.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Admin() {
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -35,6 +36,7 @@ async function checkAuth() {
 
   try {
     const res = await fetch(`${API_URL}/api/admin/me`, {
+      method: "GET",
       credentials: "include",
       signal: controller.signal,
     });
@@ -42,35 +44,43 @@ async function checkAuth() {
     setIsAuthenticated(res.ok);
   } catch (error) {
     if (error.name === "AbortError") {
-      console.warn("Admin authentication check timed out");
+      console.warn("Initial admin session check timed out");
     } else {
-      console.error("Admin authentication check failed:", error);
+      console.error("Initial admin session check failed:", error);
     }
 
     setIsAuthenticated(false);
   } finally {
     clearTimeout(timeoutId);
+    setIsCheckingAuth(false);
   }
 }
+
   async function handleLogin(e) {
   e.preventDefault();
   setLoginError("");
 
-  const res = await fetch(`${API_URL}/api/admin/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ password }),
-  });
+  try {
+    const res = await fetch(`${API_URL}/api/admin/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ password }),
+    });
 
-  if (!res.ok) {
-    setLoginError("Incorrect password");
-    return;
+    if (!res.ok) {
+      setLoginError("Incorrect password");
+      return;
+    }
+
+    setPassword("");
+    setIsAuthenticated(true);
+  } catch (error) {
+    console.error("Admin login failed:", error);
+    setLoginError("Unable to log in. Please try again.");
   }
-
-  setIsAuthenticated(true);
-  loadDashboard();
-  loadRegistrations();
 }
   async function loadDashboard() {
 const res = await fetch(`${API_URL}/api/admin/dashboard`, {
@@ -201,6 +211,17 @@ useEffect(() => {
     });
   };
 }, [isAuthenticated]);
+
+if (isCheckingAuth) {
+  return (
+    <main className="admin-page">
+      <section className="admin-card">
+        <h1>Admin Login</h1>
+        <p>Checking admin session…</p>
+      </section>
+    </main>
+  );
+}
 
 if (!isAuthenticated) {
   return (
