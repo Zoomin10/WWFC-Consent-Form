@@ -29,13 +29,27 @@ export default function Admin() {
 }
 
 
-  async function checkAuth() {
-  const res = await fetch(`${API_URL}/api/admin/me`, {
-    credentials: "include",
-  });
+async function checkAuth() {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-  if (res.ok) {
-    setIsAuthenticated(true);
+  try {
+    const res = await fetch(`${API_URL}/api/admin/me`, {
+      credentials: "include",
+      signal: controller.signal,
+    });
+
+    setIsAuthenticated(res.ok);
+  } catch (error) {
+    if (error.name === "AbortError") {
+      console.warn("Admin authentication check timed out");
+    } else {
+      console.error("Admin authentication check failed:", error);
+    }
+
+    setIsAuthenticated(false);
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
   async function handleLogin(e) {
