@@ -297,6 +297,11 @@ th {
   grid-column: 1 / -1;
 }
 
+.download-btn {
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .logout-btn {
   border: none;
   background: #111827;

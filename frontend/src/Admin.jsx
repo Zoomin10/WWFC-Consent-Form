@@ -106,6 +106,58 @@ const res = await fetch(`${API_URL}/api/admin/registrations?${params}`, {
     loadDashboard();
     loadRegistrations();
   }
+
+  async function downloadCsv() {
+  try {
+    const response = await fetch(
+      `${API_URL}/api/admin/registrations.csv`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (response.status === 401) {
+      setIsAuthenticated(false);
+      alert("Your admin session has expired. Please log in again.");
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`CSV download failed: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+
+    const disposition = response.headers.get("Content-Disposition");
+
+    const filenameMatch = disposition?.match(
+      /filename\*?=(?:UTF-8''|["']?)([^;"']+)/
+    );
+
+    const filename = filenameMatch
+      ? decodeURIComponent(filenameMatch[1].replace(/["']/g, ""))
+      : `wwfc-registrations-${new Date()
+          .toISOString()
+          .slice(0, 10)}.csv`;
+
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.download = filename;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    window.URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error("CSV download failed:", error);
+    alert("The CSV could not be downloaded. Please try again.");
+  }
+} 
+
 useEffect(() => {
   checkAuth();
 }, []);
@@ -258,9 +310,13 @@ if (!isAuthenticated) {
           <option value="Female">Girls</option>
         </select>
 
-        <a className="download-btn" href={`${API_URL}/api/admin/registrations.csv`}>
-          Download CSV
-        </a>
+      <button
+  type="button"
+  className="download-btn"
+  onClick={downloadCsv}
+>
+  Download CSV
+</button>
       </div>
 
         
