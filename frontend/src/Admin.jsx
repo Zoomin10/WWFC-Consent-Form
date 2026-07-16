@@ -82,6 +82,7 @@ async function checkAuth() {
     setLoginError("Unable to log in. Please try again.");
   }
 }
+
   async function loadDashboard() {
 const res = await fetch(`${API_URL}/api/admin/dashboard`, {
   credentials: "include",
