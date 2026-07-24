@@ -16,6 +16,7 @@ const ageGroups = [
   "u16",
   "u17",
   "u18",
+  "adult",
 ];
 
 const {

@@ -368,6 +368,8 @@ if (!isAuthenticated) {
     <option>Wrens</option>
     <option>Ravens</option>
      <option>U18</option>
+     <option>Mens</option>
+<option>New u8 Team</option>
         <option>Other (not listed)</option>
 </select>
         <select

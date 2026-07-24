@@ -167,7 +167,7 @@ setForm(initialForm);
 >
   <option value="">Please Select</option>
 
-  {["u7","u8","u9","u10","u11","u12","u13","u14","u15","u16","u17","u18"].map((age) => (
+  {["u7","u8","u9","u10","u11","u12","u13","u14","u15","u16","u17","u18","adult"].map((age) => (
     <option key={age} value={age}>
       {age.toUpperCase()}
     </option>
@@ -209,6 +209,8 @@ setForm(initialForm);
     <option>Wrens</option>
     <option>Ravens</option>
        <option>U18</option>
+       <option>Mens</option>
+<option>New u8 Team</option>
         <option>Other (not listed)</option>
 
     {/* etc */}
