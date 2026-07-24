@@ -332,9 +332,25 @@ if (!isAuthenticated) {
           onChange={(e) => setFilters((prev) => ({ ...prev, ageGroup: e.target.value }))}
         >
           <option value="">Filter by Age Group</option>
-          {["u7", "u8", "u9", "u10", "u11", "u12", "u13", "u14", "u15", "u16", "u17", "u18"].map((age) => (
-            <option key={age} value={age}>{age.toUpperCase()}</option>
-          ))}
+       {[
+  "u7",
+  "u8",
+  "u9",
+  "u10",
+  "u11",
+  "u12",
+  "u13",
+  "u14",
+  "u15",
+  "u16",
+  "u17",
+  "u18",
+  "adult",
+].map((age) => (
+  <option key={age} value={age}>
+    {age === "adult" ? "Adult" : age.toUpperCase()}
+  </option>
+))}
         </select>
 <select
   value={filters.wwfcTeam}
