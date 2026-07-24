@@ -183,7 +183,7 @@ setForm(initialForm);
     onChange={(e) => updateField("wwfcTeam", e.target.value)}
   >
     <option value="">Select Team</option>
-
+<option>New u8 Team</option>
     <option>Black Cats</option>
     <option>Wild Cats</option>
     <option>Panthers</option>
@@ -210,7 +210,6 @@ setForm(initialForm);
     <option>Ravens</option>
        <option>U18</option>
        <option>Mens</option>
-<option>New u8 Team</option>
         <option>Other (not listed)</option>
 
     {/* etc */}

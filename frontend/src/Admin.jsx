@@ -343,6 +343,7 @@ if (!isAuthenticated) {
   }
 >
   <option value="">Filter by Team</option>
+  <option>New u8 Team</option>
   <option>Black Cats</option>
     <option>Wild Cats</option>
     <option>Panthers</option>
@@ -369,7 +370,7 @@ if (!isAuthenticated) {
     <option>Ravens</option>
      <option>U18</option>
      <option>Mens</option>
-<option>New u8 Team</option>
+
         <option>Other (not listed)</option>
 </select>
         <select
