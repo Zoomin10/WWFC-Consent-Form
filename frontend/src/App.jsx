@@ -286,18 +286,40 @@ setForm(initialForm);
   </a>.
           </p>
 
-          <h2>Parent / Carer Signature</h2>
+        <h2>
+  {form.ageGroup === "adult"
+    ? "Player Signature"
+    : "Parent / Carer Signature"}
+</h2>
 
           <div className="grid">
             <label>
-              Signature
-              <input required value={form.parentSignature} onChange={(e) => updateField("parentSignature", e.target.value)} />
-            </label>
+  {form.ageGroup === "adult"
+    ? "Player Signature"
+    : "Parent / Carer Signature"}
 
-            <label>
-              Printed Name
-              <input required value={form.parentName} onChange={(e) => updateField("parentName", e.target.value)} />
-            </label>
+  <input
+    required
+    value={form.parentSignature}
+    onChange={(e) =>
+      updateField("parentSignature", e.target.value)
+    }
+  />
+</label>
+
+           <label>
+  {form.ageGroup === "adult"
+    ? "Player Name"
+    : "Parent / Carer Name"}
+
+  <input
+    required
+    value={form.parentName}
+    onChange={(e) =>
+      updateField("parentName", e.target.value)
+    }
+  />
+</label>
 
             <label>
               Date of Signature
