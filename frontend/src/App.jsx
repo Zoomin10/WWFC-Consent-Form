@@ -183,7 +183,7 @@ setForm(initialForm);
     onChange={(e) => updateField("wwfcTeam", e.target.value)}
   >
     <option value="">Select Team</option>
-<option>New u8 Team</option>
+<option>Rebels</option>
     <option>Black Cats</option>
     <option>Wild Cats</option>
     <option>Panthers</option>
